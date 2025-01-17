@@ -1,6 +1,6 @@
 <?php
 
-define('BASEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/websiteku/public');
+define('BASEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/phpmvc/public');
 
 //DB
 define('DB_HOST', 'localhost');
