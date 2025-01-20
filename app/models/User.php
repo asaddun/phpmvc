@@ -16,10 +16,11 @@ class User
         $passwordHash = password_hash($data["password"], PASSWORD_BCRYPT);
         $sql =
             "INSERT INTO {$this->tableUser}
-            VALUES (NULL, :username, :email, :password, NULL, CURRENT_TIMESTAMP)";
+            VALUES (NULL, :username, :fullname, :email, :password, 1, CURRENT_TIMESTAMP)";
 
         $this->db->query($sql);
         $this->db->bind("username", $data["username"]);
+        $this->db->bind("fullname", $data["fullname"]);
         $this->db->bind("email", $data["email"]);
         $this->db->bind("password", $passwordHash);
         $this->db->execute();
