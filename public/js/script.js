@@ -116,10 +116,14 @@ if (processModal) {
     const description_process = button.getAttribute("data-description");
     const status_process = button.getAttribute("data-status");
     const ticketNumber_process = button.getAttribute("data-ticketNumber");
+    const action_process = button.getAttribute("data-action");
 
     const processButton = document.getElementById("processButton");
     const holdButton = document.getElementById("holdButton");
     const closeButton = document.getElementById("closeButton");
+
+    const action_area = document.getElementById("action-area");
+    const action_textarea = document.getElementById("action-textarea");
 
     // Isi modal
     document.getElementById("fullname-process").textContent = fullname_process;
@@ -133,18 +137,46 @@ if (processModal) {
     document.getElementById("form-close").action =
       BASEURL + "/ticket/close/" + ticketNumber_process;
 
+    holdButton.addEventListener("click", function () {
+      appendTextareaToForm("form-hold");
+    });
+    closeButton.addEventListener("click", function () {
+      appendTextareaToForm("form-close");
+    });
+
     if (status_process === "2") {
       processButton.classList.remove("d-none");
       holdButton.classList.add("d-none");
       closeButton.classList.add("d-none");
+      action_area.classList.add("d-none");
     } else if (status_process === "3") {
       processButton.classList.add("d-none");
       holdButton.classList.remove("d-none");
       closeButton.classList.remove("d-none");
+      action_area.classList.remove("d-none");
+      action_textarea.disabled = false;
+      action_textarea.value = "";
     } else if (status_process === "4") {
       processButton.classList.remove("d-none");
       holdButton.classList.add("d-none");
       closeButton.classList.add("d-none");
+      action_area.classList.remove("d-none");
+      action_textarea.disabled = true;
+      if (action_process) {
+        action_textarea.value = action_process;
+      }
     }
   });
+}
+
+function appendTextareaToForm(formId) {
+  const textarea = document.getElementById("action-textarea");
+  const form = document.getElementById(formId);
+
+  // Check if textarea already exists in the form to avoid duplicates
+  if (!form.querySelector("textarea")) {
+    const clone = textarea.cloneNode(true);
+    clone.name = "action"; // Set a name attribute so the value is submitted
+    form.appendChild(clone);
+  }
 }

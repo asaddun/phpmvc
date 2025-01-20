@@ -129,26 +129,28 @@ class Ticket
         return $this->db->rowCount();
     }
 
-    public function holdTicket($ticketNumber)
+    public function holdTicket($data, $ticketNumber)
     {
         $sql =
             "UPDATE {$this->table}
-            SET status = 4
+            SET status = 4, tindakan = :tindakan
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
         $this->db->bind("nomor_tiket", $ticketNumber);
+        $this->db->bind("tindakan", $data['action']);
         $this->db->execute();
         return $this->db->rowCount();
     }
 
-    public function closeTicket($ticketNumber)
+    public function closeTicket($data, $ticketNumber)
     {
         $sql =
             "UPDATE {$this->table}
-            SET status = 5
+            SET status = 5, tindakan = :tindakan
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
         $this->db->bind("nomor_tiket", $ticketNumber);
+        $this->db->bind("tindakan", $data['action']);
         $this->db->execute();
         return $this->db->rowCount();
     }

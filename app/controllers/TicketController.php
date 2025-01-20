@@ -117,7 +117,7 @@ class TicketController extends Controller
 
     public function hold($ticketNumber)
     {
-        $data = $this->model('Ticket')->holdTicket($ticketNumber);
+        $data = $this->model('Ticket')->holdTicket($_POST, $ticketNumber);
         if ($data > 0) {
             Swal::setSwal('Berhasil', 'Berhasil menunda tiket', 'success');
             header('Location: ' . BASEURL . '/ticket/queue');
@@ -131,7 +131,7 @@ class TicketController extends Controller
 
     public function close($ticketNumber)
     {
-        $data = $this->model('Ticket')->closeTicket($ticketNumber);
+        $data = $this->model('Ticket')->closeTicket($_POST, $ticketNumber);
         if ($data > 0) {
             Swal::setSwal('Berhasil', 'Berhasil menutup tiket', 'success');
             header('Location: ' . BASEURL . '/ticket/queue');

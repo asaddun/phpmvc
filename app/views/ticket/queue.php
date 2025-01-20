@@ -29,7 +29,8 @@
                             data-description="<?= $ticket['deskripsi'] ?>"
                             data-username="<?= $ticket['username'] ?>"
                             data-status="<?= $ticket['status'] ?>"
-                            data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
+                            data-ticketNumber="<?= $ticket['nomor_tiket'] ?>"
+                            data-action="<?= $ticket['tindakan'] ?>">
                             <i class="bi bi-eye"></i>
                         </button>
                     </td>
@@ -59,6 +60,13 @@
                 <div class="mb-3">
                     <label for="description" class="form-label">Deskripsi</label>
                     <div class="form-control"><span id="description-process"></span></div>
+                </div>
+                <div id="action-area" class="d-none">
+                    <hr>
+                    <div class="mb-3">
+                        <label for="action-textarea" class="form-label">Tindakan Teknisi</label>
+                        <textarea name="action" id="action-textarea" class="form-control" rows="5"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
