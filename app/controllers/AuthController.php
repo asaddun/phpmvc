@@ -48,7 +48,7 @@ class AuthController extends Controller
         unset($_SESSION['formData']);
         if ($this->model('User')->addUser($_POST) > 0) {
             $_SESSION['username'] = $_POST['username'];
-            Swal::setSwal('Berhasil', 'Login berhasil', 'success');
+            Swal::setSwal('Berhasil', 'Daftar akun berhasil', 'success');
             header('Location: ' . BASEURL);
             exit;
         } else {
