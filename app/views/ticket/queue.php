@@ -39,7 +39,7 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="4">Data tidak ditemukan</td>
+                    <td colspan="5">Data tidak ditemukan</td>
                 </tr>
             <?php endif; ?>
         </tbody>
