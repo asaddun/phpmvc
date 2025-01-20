@@ -12,30 +12,36 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($data['ticket'] as $ticket): ?>
-                <tr class="<?= ($ticket['status'] == 4) ? 'table-danger' : '' ?>">
-                    <td scope="row"><?= $ticket['queued_at'] ?></td>
-                    <td><?= $ticket['fullname'] ?></td>
-                    <td><?= $ticket['subjek'] ?></td>
-                    <td><?= ticket_status($ticket['status']) ?></td>
-                    <td>
-                        <?php if (($ticket['username'] == $_SESSION['username']) && ($ticket['status'] == 2)): ?>
-                            <button class="btn btn-danger" onclick="showConfirmationCancel('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-x-lg"></i></button>
-                        <?php endif; ?>
-                        <button class="btn btn-success"
-                            data-bs-toggle="modal" data-bs-target="#processModal"
-                            data-fullname="<?= $ticket['fullname'] ?>"
-                            data-subject="<?= $ticket['subjek'] ?>"
-                            data-description="<?= $ticket['deskripsi'] ?>"
-                            data-username="<?= $ticket['username'] ?>"
-                            data-status="<?= $ticket['status'] ?>"
-                            data-ticketNumber="<?= $ticket['nomor_tiket'] ?>"
-                            data-action="<?= $ticket['tindakan'] ?>">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </td>
+            <?php if ($data['ticket']): ?>
+                <?php foreach ($data['ticket'] as $ticket): ?>
+                    <tr class="<?= ($ticket['status'] == 4) ? 'table-danger' : '' ?>">
+                        <td scope="row"><?= $ticket['queued_at'] ?></td>
+                        <td><?= $ticket['fullname'] ?></td>
+                        <td><?= $ticket['subjek'] ?></td>
+                        <td><?= ticket_status($ticket['status']) ?></td>
+                        <td>
+                            <?php if (($ticket['username'] == $_SESSION['username']) && ($ticket['status'] == 2)): ?>
+                                <button class="btn btn-danger" onclick="showConfirmationCancel('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-x-lg"></i></button>
+                            <?php endif; ?>
+                            <button class="btn btn-success"
+                                data-bs-toggle="modal" data-bs-target="#processModal"
+                                data-fullname="<?= $ticket['fullname'] ?>"
+                                data-subject="<?= $ticket['subjek'] ?>"
+                                data-description="<?= $ticket['deskripsi'] ?>"
+                                data-username="<?= $ticket['username'] ?>"
+                                data-status="<?= $ticket['status'] ?>"
+                                data-ticketNumber="<?= $ticket['nomor_tiket'] ?>"
+                                data-action="<?= $ticket['tindakan'] ?>">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4">Data tidak ditemukan</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

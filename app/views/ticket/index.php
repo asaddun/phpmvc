@@ -14,40 +14,46 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($data['ticket'] as $ticket): ?>
+            <?php if ($data['ticket']): ?>
+                <?php foreach ($data['ticket'] as $ticket): ?>
+                    <tr>
+                        <td scope="row"><?= $ticket['created_at'] ?></td>
+                        <td><?= $ticket['subjek'] ?></td>
+                        <td><?= ticket_status($ticket['status']) ?></td>
+                        <td>
+                            <?php if ($ticket['status'] == 1): ?>
+                                <button class="btn btn-warning"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editModal"
+                                    data-fullname="<?= $data['user']['fullname'] ?>"
+                                    data-user_id="<?= $ticket['user_id'] ?>"
+                                    data-subject="<?= $ticket['subjek'] ?>"
+                                    data-description="<?= $ticket['deskripsi'] ?>"
+                                    data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="showConfirmationDelete('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-success" onclick="showConfirmationSend('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-send"></i></button>
+                            <?php endif ?>
+                            <?php if ($ticket['status'] == 2): ?>
+                            <?php endif ?>
+                            <?php if ($ticket['status'] > 1): ?>
+                                <button class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#infoModal"
+                                    data-fullname="<?= $data['user']['fullname'] ?>"
+                                    data-subject="<?= $ticket['subjek'] ?>"
+                                    data-description="<?= $ticket['deskripsi'] ?>">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            <?php endif ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td scope="row"><?= $ticket['created_at'] ?></td>
-                    <td><?= $ticket['subjek'] ?></td>
-                    <td><?= ticket_status($ticket['status']) ?></td>
-                    <td>
-                        <?php if ($ticket['status'] == 1): ?>
-                            <button class="btn btn-warning"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editModal"
-                                data-fullname="<?= $data['user']['fullname'] ?>"
-                                data-user_id="<?= $ticket['user_id'] ?>"
-                                data-subject="<?= $ticket['subjek'] ?>"
-                                data-description="<?= $ticket['deskripsi'] ?>"
-                                data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger" onclick="showConfirmationDelete('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-trash"></i></button>
-                            <button class="btn btn-success" onclick="showConfirmationSend('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-send"></i></button>
-                        <?php endif ?>
-                        <?php if ($ticket['status'] == 2): ?>
-                        <?php endif ?>
-                        <?php if ($ticket['status'] > 1): ?>
-                            <button class="btn btn-primary"
-                                data-bs-toggle="modal" data-bs-target="#infoModal"
-                                data-fullname="<?= $data['user']['fullname'] ?>"
-                                data-subject="<?= $ticket['subjek'] ?>"
-                                data-description="<?= $ticket['deskripsi'] ?>">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        <?php endif ?>
-                    </td>
+                    <td colspan="4">Data tidak ditemukan</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
