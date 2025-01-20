@@ -86,6 +86,13 @@
                     <label for="description" class="form-label">Deskripsi</label>
                     <div class="form-control"><span id="description-info"></span></div>
                 </div>
+                <div id="action-info-area" class="d-none">
+                    <hr>
+                    <div class="mb-3">
+                        <label for="action-info-textarea" class="form-label">Tindakan Teknisi</label>
+                        <textarea name="action" id="action-info-textarea" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -115,11 +122,11 @@
                     <label for="description" class="form-label">Deskripsi</label>
                     <div class="form-control"><span id="description-process"></span></div>
                 </div>
-                <div id="action-area" class="d-none">
+                <div id="action-process-area" class="d-none">
                     <hr>
                     <div class="mb-3">
-                        <label for="action-textarea" class="form-label">Tindakan Teknisi</label>
-                        <textarea name="action" id="action-textarea" class="form-control" rows="5"></textarea>
+                        <label for="action-process-textarea" class="form-label">Tindakan Teknisi</label>
+                        <textarea name="action" id="action-process-textarea" class="form-control" rows="5"></textarea>
                     </div>
                 </div>
             </div>

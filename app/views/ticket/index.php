@@ -42,7 +42,9 @@
                                     data-bs-toggle="modal" data-bs-target="#infoModal"
                                     data-fullname="<?= $data['user']['fullname'] ?>"
                                     data-subject="<?= $ticket['subjek'] ?>"
-                                    data-description="<?= $ticket['deskripsi'] ?>">
+                                    data-description="<?= $ticket['deskripsi'] ?>"
+                                    data-status="<?= $ticket['status'] ?>"
+                                    data-action="<?= $ticket['tindakan'] ?>">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             <?php endif ?>

@@ -80,11 +80,25 @@ if (infoModal) {
     const fullname_info = button.getAttribute("data-fullname");
     const subject_info = button.getAttribute("data-subject");
     const description_info = button.getAttribute("data-description");
+    const status_info = button.getAttribute("data-status");
+    const action_info = button.getAttribute("data-action");
 
+    const action_area = document.getElementById("action-info-area");
+    const action_textarea = document.getElementById("action-info-textarea");
     // Isi modal
     document.getElementById("fullname-info").textContent = fullname_info;
     document.getElementById("subject-info").textContent = subject_info;
     document.getElementById("description-info").textContent = description_info;
+
+    if (status_info === "4" || status_info === "5") {
+      action_area.classList.remove("d-none");
+      action_textarea.disabled = true;
+      if (action_info) {
+        action_textarea.value = action_info;
+      }
+    } else {
+      action_area.classList.add("d-none");
+    }
   });
 }
 
@@ -122,8 +136,8 @@ if (processModal) {
     const holdButton = document.getElementById("holdButton");
     const closeButton = document.getElementById("closeButton");
 
-    const action_area = document.getElementById("action-area");
-    const action_textarea = document.getElementById("action-textarea");
+    const action_area = document.getElementById("action-process-area");
+    const action_textarea = document.getElementById("action-process-textarea");
 
     // Isi modal
     document.getElementById("fullname-process").textContent = fullname_process;
