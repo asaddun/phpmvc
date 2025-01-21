@@ -1,3 +1,6 @@
+<?php
+require_once '../app/core/AuthCheck.php';
+?>
 <div class="container">
     <h3 class="text-center mb-3">Antrian Tiket</h3>
     <!-- Table -->

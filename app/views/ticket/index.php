@@ -1,3 +1,6 @@
+<?php
+require_once '../app/core/AuthCheck.php';
+?>
 <div class="container">
     <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#formModal">
         Buat Tiket
