@@ -40,16 +40,26 @@ $url = explode('/', $url);
                     <a class="nav-link dropdown-toggle text-white <?= ($url[0] == 'ticket') ? 'active' : '' ?>" href="#" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#ticketsubmenu">Ticket</a>
                     <!-- dropdown menu -->
                     <div class="sub-menu collapse" id="ticketsubmenu">
-                        <a class="nav-link text-white <?= ($url[0] == 'ticket' && $url[1] == '') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket">My Ticket</a>
-                        <a class="nav-link text-white <?= ($url[1] == 'queue') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/queue">Queue</a>
-                        <a class="nav-link text-white <?= ($url[1] == 'history') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/history">History</a>
+                        <a class="nav-link text-white <?= ($url[0] == 'ticket' && $url[1] == '') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket">
+                            <div class="ms-3">My Ticket</div>
+                        </a>
+                        <a class="nav-link text-white <?= ($url[1] == 'queue') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/queue">
+                            <div class="ms-3">Queue</div>
+                        </a>
+                        <a class="nav-link text-white <?= ($url[1] == 'history') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/history">
+                            <div class="ms-3">History</div>
+                        </a>
                     </div>
                     <!-- dropdown -->
                     <a class="nav-link dropdown-toggle text-white <?= ($url[0] == 'map') ? 'active' : '' ?>" href="#" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#submenu">Map</a>
                     <!-- dropdown menu -->
                     <div class="sub-menu collapse" id="submenu">
-                        <a class="nav-link text-white <?= ($url[0] == 'map' && $url[1] == '') ? 'active' : '' ?>" href="<?= BASEURL ?>/map">The Peninsula</a>
-                        <a class="nav-link text-white <?= ($url[1] == '#') ? 'active' : '' ?>" href="#">Link</a>
+                        <a class="nav-link text-white <?= ($url[0] == 'map' && $url[1] == '') ? 'active' : '' ?>" href="<?= BASEURL ?>/map">
+                            <div class="ms-3">The Peninsula</div>
+                        </a>
+                        <a class="nav-link text-white <?= ($url[1] == '#') ? 'active' : '' ?>" href="#">
+                            <div class="ms-3">Link</div>
+                        </a>
                     </div>
                     <!-- end dropdown menu -->
                     <a class="nav-link text-white <?= ($url[0] == 'settings') ? 'active' : '' ?>" href="<?= BASEURL ?>/settings">Settings</a>
