@@ -73,6 +73,24 @@ function showConfirmationCancel(data) {
   });
 }
 
+const editModal = document.getElementById("editModal");
+if (editModal) {
+  editModal.addEventListener("show.bs.modal", function (event) {
+    const button = event.relatedTarget; // Tombol yang diklik
+    const fullname_edit = button.getAttribute("data-fullname");
+    const subject_edit = button.getAttribute("data-subject");
+    const description_edit = button.getAttribute("data-description");
+    const ticketNumber_edit = button.getAttribute("data-ticketNumber");
+
+    // Isi modal
+    document.getElementById("fullname-edit").value = fullname_edit;
+    document.getElementById("subject-edit").value = subject_edit;
+    document.getElementById("description-edit").value = description_edit;
+    document.getElementById("form-edit").action =
+      BASEURL + "/ticket/update/" + ticketNumber_edit;
+  });
+}
+
 const infoModal = document.getElementById("infoModal");
 if (infoModal) {
   infoModal.addEventListener("show.bs.modal", function (event) {
@@ -89,6 +107,8 @@ if (infoModal) {
     document.getElementById("fullname-info").textContent = fullname_info;
     document.getElementById("subject-info").textContent = subject_info;
     document.getElementById("description-info").textContent = description_info;
+    document.getElementById("status-info").textContent =
+      status_ticket(status_info);
 
     if (status_info === "4" || status_info === "5") {
       action_area.classList.remove("d-none");
@@ -99,24 +119,6 @@ if (infoModal) {
     } else {
       action_area.classList.add("d-none");
     }
-  });
-}
-
-const editModal = document.getElementById("editModal");
-if (editModal) {
-  editModal.addEventListener("show.bs.modal", function (event) {
-    const button = event.relatedTarget; // Tombol yang diklik
-    const fullname_edit = button.getAttribute("data-fullname");
-    const subject_edit = button.getAttribute("data-subject");
-    const description_edit = button.getAttribute("data-description");
-    const ticketNumber_edit = button.getAttribute("data-ticketNumber");
-
-    // Isi modal
-    document.getElementById("fullname-edit").value = fullname_edit;
-    document.getElementById("subject-edit").value = subject_edit;
-    document.getElementById("description-edit").value = description_edit;
-    document.getElementById("form-edit").action =
-      BASEURL + "/ticket/update/" + ticketNumber_edit;
   });
 }
 
@@ -144,6 +146,8 @@ if (processModal) {
     document.getElementById("subject-process").textContent = subject_process;
     document.getElementById("description-process").textContent =
       description_process;
+    document.getElementById("status-process").textContent =
+      status_ticket(status_process);
     document.getElementById("form-process").action =
       BASEURL + "/ticket/process/" + ticketNumber_process;
     document.getElementById("form-hold").action =
@@ -192,5 +196,24 @@ function appendTextareaToForm(formId) {
     const clone = textarea.cloneNode(true);
     clone.name = "action"; // Set a name attribute so the value is submitted
     form.appendChild(clone);
+  }
+}
+
+function status_ticket(status) {
+  switch (status) {
+    case "1":
+      return "Draft"; // baru bikin, masih bisa edit/hapus, belum masuk antrian
+    case "2":
+      return "In Queue"; // dalam antrian, hanya bisa cancel
+    case "3":
+      return "On Process"; // sedang dikerjakan, tidak bisa diubah user
+    case "4":
+      return "On Hold"; // ditunda, hanya bisa cancel
+    case "5":
+      return "Closed"; // selesai
+    case "6":
+      return "Canceled"; // dibatalkan
+    case "7":
+      return "Deleted"; // user menghapus, batal membuat tiket
   }
 }

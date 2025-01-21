@@ -75,16 +75,20 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nama</label>
+                    <label for="fullname-info" class="form-label">Nama</label>
                     <div class="form-control"><span id="fullname-info"></span></div>
                 </div>
                 <div class="mb-3">
-                    <label for="subject" class="form-label">Subjek</label>
+                    <label for="subject-info" class="form-label">Subjek</label>
                     <div class="form-control"><span id="subject-info"></span></div>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi</label>
+                    <label for="description-info" class="form-label">Deskripsi</label>
                     <div class="form-control"><span id="description-info"></span></div>
+                </div>
+                <div class="mb-3">
+                    <label for="status-info" class="form-label">Status</label>
+                    <div class="form-control"><span id="status-info"></span></div>
                 </div>
                 <div id="action-info-area" class="d-none">
                     <hr>
@@ -121,6 +125,10 @@
                 <div class="mb-3">
                     <label for="description" class="form-label">Deskripsi</label>
                     <div class="form-control"><span id="description-process"></span></div>
+                </div>
+                <div class="mb-3">
+                    <label for="status-process" class="form-label">Status</label>
+                    <div class="form-control"><span id="status-process"></span></div>
                 </div>
                 <div id="action-process-area" class="d-none">
                     <hr>
