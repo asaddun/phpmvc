@@ -66,7 +66,7 @@ class Ticket
     {
         $sql =
             "INSERT INTO {$this->table}
-            VALUES (NULL, :nomor_tiket, :subjek, :deskripsi, :status, :user_id, CURRENT_TIMESTAMP, NULL)";
+            VALUES (NULL, :nomor_tiket, :subjek, :deskripsi, :status, :user_id, CURRENT_TIMESTAMP, NULL, NULL)";
 
         $this->db->query($sql);
         $this->db->bind("nomor_tiket", $ticketNumber);
