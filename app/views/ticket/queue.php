@@ -7,6 +7,7 @@ require_once '../app/core/AuthCheck.php';
     <table class="table table-sm table-hover text-center">
         <thead>
             <tr>
+                <th scope="col">Nomor Tiket</th>
                 <th scope="col">Tanggal Antri</th>
                 <th scope="col">Dari</th>
                 <th scope="col">Subjek</th>
@@ -18,7 +19,8 @@ require_once '../app/core/AuthCheck.php';
             <?php if ($data['ticket']): ?>
                 <?php foreach ($data['ticket'] as $ticket): ?>
                     <tr class="<?= ($ticket['status'] == 4) ? 'table-danger' : '' ?>">
-                        <td scope="row"><?= $ticket['queued_at'] ?></td>
+                        <td scope="row"><?= $ticket['nomor_tiket'] ?></td>
+                        <td><?= $ticket['queued_at'] ?></td>
                         <td><?= $ticket['fullname'] ?></td>
                         <td><?= $ticket['subjek'] ?></td>
                         <td><?= ticket_status($ticket['status']) ?></td>
@@ -42,7 +44,7 @@ require_once '../app/core/AuthCheck.php';
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="5">Data tidak ditemukan</td>
+                    <td colspan="6">Data tidak ditemukan</td>
                 </tr>
             <?php endif; ?>
         </tbody>

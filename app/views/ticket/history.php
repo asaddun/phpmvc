@@ -4,6 +4,7 @@
     <table class="table table-sm table-hover text-center">
         <thead>
             <tr>
+                <th scope="col">Nomor Tiket</th>
                 <th scope="col">Tanggal Dibuat</th>
                 <th scope="col">Dari</th>
                 <th scope="col">Subjek</th>
@@ -15,7 +16,8 @@
             <?php if ($data['ticket']): ?>
                 <?php foreach ($data['ticket'] as $ticket): ?>
                     <tr>
-                        <td scope="row"><?= $ticket['created_at'] ?></td>
+                        <td scope="row"><?= $ticket['nomor_tiket'] ?></td>
+                        <td><?= $ticket['created_at'] ?></td>
                         <td><?= $ticket['fullname'] ?></td>
                         <td><?= $ticket['subjek'] ?></td>
                         <td><?= ticket_status($ticket['status']) ?></td>
@@ -26,7 +28,8 @@
                                 data-subject="<?= $ticket['subjek'] ?>"
                                 data-description="<?= $ticket['deskripsi'] ?>"
                                 data-status="<?= $ticket['status'] ?>"
-                                data-action="<?= $ticket['tindakan'] ?>">
+                                data-action="<?= $ticket['tindakan'] ?>"
+                                data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </td>
@@ -34,7 +37,7 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="5">Data tidak ditemukan</td>
+                    <td colspan="6">Data tidak ditemukan</td>
                 </tr>
             <?php endif; ?>
         </tbody>

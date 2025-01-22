@@ -38,7 +38,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editModalLabel">Edit Tiket</h1>
+                <h1 class="modal-title fs-5" id="editModalLabel"><span id="ticketnumber-edit"></span></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="form-edit" method="POST">
@@ -70,7 +70,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="infoModalLabel">Info Tiket</h1>
+                <h1 class="modal-title fs-5" id="infoModalLabel"><span id="ticketnumber-info"></span></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -110,7 +110,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="processModalLabel">Info Tiket</h1>
+                <h1 class="modal-title fs-5" id="processModalLabel"><span id="ticketnumber-process"></span></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

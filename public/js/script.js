@@ -86,6 +86,8 @@ if (editModal) {
     document.getElementById("fullname-edit").value = fullname_edit;
     document.getElementById("subject-edit").value = subject_edit;
     document.getElementById("description-edit").value = description_edit;
+    document.getElementById("ticketnumber-edit").textContent =
+      ticketNumber_edit;
     document.getElementById("form-edit").action =
       BASEURL + "/ticket/update/" + ticketNumber_edit;
   });
@@ -98,6 +100,7 @@ if (infoModal) {
     const fullname_info = button.getAttribute("data-fullname");
     const subject_info = button.getAttribute("data-subject");
     const description_info = button.getAttribute("data-description");
+    const ticketNumber_info = button.getAttribute("data-ticketNumber");
     const status_info = button.getAttribute("data-status");
     const action_info = button.getAttribute("data-action");
 
@@ -107,6 +110,8 @@ if (infoModal) {
     document.getElementById("fullname-info").textContent = fullname_info;
     document.getElementById("subject-info").textContent = subject_info;
     document.getElementById("description-info").textContent = description_info;
+    document.getElementById("ticketnumber-info").textContent =
+      ticketNumber_info;
     document.getElementById("status-info").textContent =
       status_ticket(status_info);
 
@@ -146,6 +151,8 @@ if (processModal) {
     document.getElementById("subject-process").textContent = subject_process;
     document.getElementById("description-process").textContent =
       description_process;
+    document.getElementById("ticketnumber-process").textContent =
+      ticketNumber_process;
     document.getElementById("status-process").textContent =
       status_ticket(status_process);
     document.getElementById("form-process").action =
