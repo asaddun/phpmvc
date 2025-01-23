@@ -4,7 +4,7 @@
     <table class="table table-sm table-hover text-center">
         <thead>
             <tr>
-                <th scope="col">Nomor Tiket</th>
+                <th scope="col" class="d-none d-md-table-cell">Nomor Tiket</th>
                 <th scope="col">Tanggal Dibuat</th>
                 <th scope="col">Dari</th>
                 <th scope="col">Subjek</th>
@@ -16,7 +16,7 @@
             <?php if ($data['ticket']): ?>
                 <?php foreach ($data['ticket'] as $ticket): ?>
                     <tr>
-                        <td scope="row"><?= $ticket['nomor_tiket'] ?></td>
+                        <td scope="row" class="d-none d-md-table-cell"><?= $ticket['nomor_tiket'] ?></td>
                         <td><?= $ticket['created_at'] ?></td>
                         <td><?= $ticket['fullname'] ?></td>
                         <td><?= $ticket['subjek'] ?></td>
