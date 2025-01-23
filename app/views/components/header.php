@@ -24,14 +24,14 @@ $url = explode('/', $url);
 
 <body>
     <?php if (isset($_SESSION['username'])): ?>
-        <div class="navbar bg-dark d-block d-md-none">
+        <div class="navbar bg-dark d-block d-md-none" style="position: sticky; top: 0;">
             <div class="container-fluid">
                 <button id="toggleButton" class="btn btn-outline-light" onclick="toggleSidebar()">☰</button>
                 <span class="navbar-brand mb-0 h1 text-white ms-auto"><?= $data['judul'] ?></span>
             </div>
         </div>
-        <div class="d-flex" style="height: 100vh;">
-            <div id="sidebar" class="col-md-2 pe-0 bg-dark d-none d-md-flex flex-column">
+        <div class="d-flex" style="min-height: 100vh;">
+            <div id="sidebar" class="col-md-2 pe-0 bg-dark d-none d-md-flex flex-column" style="position: sticky; top: 0; height: 100vh;">
                 <nav class="nav flex-column flex-grow-1">
                     <a class="nav-link text-white fs-4" href="<?= BASEURL ?>">Websiteku</a>
                     <a class="nav-link text-white <?= ($url[0] == 'employee') ? 'active' : '' ?>" href="<?= BASEURL ?>/employee">Employee</a>
@@ -43,10 +43,21 @@ $url = explode('/', $url);
                         <a class="nav-link text-white <?= ($url[0] == 'ticket' && $url[1] == '') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket">
                             <div class="ms-3">My Ticket</div>
                         </a>
-                        <a class="nav-link text-white <?= ($url[1] == 'queue') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/queue">
+                        <a class="nav-link text-white <?= ($url[0] == 'ticket' && $url[1] == 'queue') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/queue">
                             <div class="ms-3">Queue</div>
                         </a>
-                        <a class="nav-link text-white <?= ($url[1] == 'history') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/history">
+                        <a class="nav-link text-white <?= ($url[0] == 'ticket' && $url[1] == 'history') ? 'active' : '' ?>" href="<?= BASEURL ?>/ticket/history">
+                            <div class="ms-3">History</div>
+                        </a>
+                    </div>
+                    <!-- dropdown -->
+                    <a class="nav-link dropdown-toggle text-white <?= ($url[0] == 'service') ? 'active' : '' ?>" href="#" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#servicesubmenu">Service</a>
+                    <!-- dropdown menu -->
+                    <div class="sub-menu collapse" id="servicesubmenu">
+                        <a class="nav-link text-white <?= ($url[0] == 'service' && $url[1] == '') ? 'active' : '' ?>" href="<?= BASEURL ?>/service">
+                            <div class="ms-3">Booking</div>
+                        </a>
+                        <a class="nav-link text-white <?= ($url[0] == 'service' && $url[1] == 'history') ? 'active' : '' ?>" href="<?= BASEURL ?>/service/history">
                             <div class="ms-3">History</div>
                         </a>
                     </div>
