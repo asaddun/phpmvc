@@ -1,8 +1,20 @@
-const toggleButton = document.getElementById("toggleSidebar");
-function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  sidebar.classList.toggle("d-none");
-}
+$(document).ready(function () {
+  // Saat area di luar sidebar diklik, tutup sidebar (khusus mobile)
+  $(document).click(function (event) {
+    var body = $("body");
+    var sidebar = $(".main-sidebar"); // Sidebar
+    var toggleButton = $('[data-widget="pushmenu"]'); // Tombol toggle
+
+    // Jika sidebar terbuka dan klik bukan di sidebar atau tombol toggle
+    if (
+      body.hasClass("sidebar-open") &&
+      !$(event.target).closest(sidebar).length &&
+      !$(event.target).closest(toggleButton).length
+    ) {
+      body.removeClass("sidebar-open").addClass("sidebar-collapse");
+    }
+  });
+});
 
 function togglePassword() {
   const passwordInput = document.getElementById("password");
