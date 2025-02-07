@@ -28,9 +28,32 @@ class Problem
         return $this->db->rowCount();
     }
 
+    public function checkActive($asset_id)
+    {
+        $sql =
+            "SELECT * FROM {$this->tableProblem}
+            WHERE asset_id = :asset_id AND status < 2";
+        $this->db->query($sql);
+        $this->db->bind("asset_id", $asset_id);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
     public function getAllMesin()
     {
         $sql = "SELECT * FROM {$this->tableMesin}";
+        $this->db->query($sql);
+        return $this->db->resultSet();
+    }
+
+    public function getAllProblem()
+    {
+        $sql =
+            "SELECT {$this->tableProblem}.*, {$this->tableMesin}.value
+            FROM {$this->tableProblem} 
+            INNER JOIN {$this->tableMesin} 
+            ON {$this->tableProblem}.asset_id = {$this->tableMesin}.asset_id
+            WHERE {$this->tableProblem}.status > 0";
         $this->db->query($sql);
         return $this->db->resultSet();
     }

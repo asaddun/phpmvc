@@ -16,11 +16,10 @@ class ProblemController extends Controller
     public function queue()
     {
         $data['judul'] = 'Problem';
-        // $user = $this->model('User')->getUserByUsername($_SESSION['username']);
-        // $data['user'] = $user;
-        $data['problem'] = $this->model('Problem')->getAllQueueTicket();
+        $user = $this->model('User')->getUserByUsername($_SESSION['username']);
+        $data['user'] = $user;
+        $data['problem'] = $this->model('Problem')->getAllProblem();
         $this->view('components/header', $data);
-        // $this->view('ticket/ticket_status');
         $this->view('problem/queue', $data);
         $this->view('components/footer');
     }
@@ -40,6 +39,11 @@ class ProblemController extends Controller
         $_SESSION['description'] = $_POST['description'];
         if ($_POST['mesin'] == '') {
             Swal::setSwal('Gagal', 'Mohon pilih mesin', 'error');
+            header('Location: ' . BASEURL . '/problem');
+            exit;
+        }
+        if ($this->model('Problem')->checkActive($_POST['mesin']) > 0) {
+            Swal::setSwal('Gagal', 'Mesin tersebut masih aktif bermasalah', 'error');
             header('Location: ' . BASEURL . '/problem');
             exit;
         }
