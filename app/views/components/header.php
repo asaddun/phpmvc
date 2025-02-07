@@ -46,18 +46,22 @@ $url = explode('/', $url);
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                         <li class="nav-item">
                             <a href="<?= BASEURL ?>/employee" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>Employee</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= BASEURL ?>/todo" class="nav-link">
+                                <i class="fa-solid fa-list-check"></i>
                                 <p>To Do List</p>
                             </a>
                         </li>
                         <!-- SubMenu -->
                         <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
                             <a href="#" class="nav-link">
+                                <i class="fa-solid fa-ticket"></i>
                                 <p>
+
                                     Ticket
                                     <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
                                 </p>
@@ -86,6 +90,37 @@ $url = explode('/', $url);
                         <!-- SubMenu -->
                         <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
                             <a href="#" class="nav-link">
+                                <i class="fa-solid fa-fire"></i>
+                                <p>
+                                    Problem
+                                    <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/problem" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/problem/queue" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Queue</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/problem/history" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>History</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- SubMenu -->
+                        <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
                                 <p>
                                     Service
                                     <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
@@ -108,11 +143,13 @@ $url = explode('/', $url);
                         </li>
                         <li class="nav-item">
                             <a href="<?= BASEURL ?>/settings" class="nav-link">
+                                <i class="fa-solid fa-gear"></i>
                                 <p>Settings</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= BASEURL ?>/auth/signout" class="nav-link">
+                                <i class="fa-solid fa-door-open"></i>
                                 <p>Logout</p>
                             </a>
                         </li>
