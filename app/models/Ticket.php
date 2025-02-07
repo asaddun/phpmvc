@@ -2,7 +2,8 @@
 
 class Ticket
 {
-    private $table = 'tickets';
+    private $tableTicket = 'tickets';
+    private $tableUser = 'users';
     private $db;
 
     public function __construct()
@@ -13,7 +14,7 @@ class Ticket
     public function getAllMyTicket($user_id)
     {
         $sql =
-            "SELECT * FROM {$this->table} 
+            "SELECT * FROM {$this->tableTicket} 
             WHERE user_id=:user_id
             ORDER BY created_at DESC";
         $this->db->query($sql);
@@ -24,11 +25,11 @@ class Ticket
     public function getAllHistoryTicket()
     {
         $sql =
-            "SELECT {$this->table}.*, users.fullname 
-            FROM {$this->table} 
-            INNER JOIN users 
-            ON {$this->table}.user_id = users.id
-            WHERE {$this->table}.status > 4";
+            "SELECT {$this->tableTicket}.*, {$this->tableUser}.fullname 
+            FROM {$this->tableTicket} 
+            INNER JOIN {$this->tableUser} 
+            ON {$this->tableTicket}.user_id = {$this->tableUser}.id
+            WHERE {$this->tableTicket}.status > 4";
         $this->db->query($sql);
         return $this->db->resultSet();
     }
@@ -36,17 +37,17 @@ class Ticket
     public function getAllQueueTicket()
     {
         $sql =
-            "SELECT {$this->table}.*, users.fullname, users.username
-            FROM {$this->table} 
-            INNER JOIN users 
-            ON {$this->table}.user_id = users.id
-            WHERE {$this->table}.status BETWEEN 2 AND 4
+            "SELECT {$this->tableTicket}.*, {$this->tableUser}.fullname, {$this->tableUser}.username
+            FROM {$this->tableTicket} 
+            INNER JOIN {$this->tableUser} 
+            ON {$this->tableTicket}.user_id = {$this->tableUser}.id
+            WHERE {$this->tableTicket}.status BETWEEN 2 AND 4
             ORDER BY 
                 CASE
-                    WHEN {$this->table}.status = 4 THEN 1
+                    WHEN {$this->tableTicket}.status = 4 THEN 1
                     ELSE 2
                 END,
-            {$this->table}.queued_at ASC";
+            {$this->tableTicket}.queued_at ASC";
         $this->db->query($sql);
         return $this->db->resultSet();
     }
@@ -65,7 +66,7 @@ class Ticket
     public function addTicket($data, $ticketNumber)
     {
         $sql =
-            "INSERT INTO {$this->table}
+            "INSERT INTO {$this->tableTicket}
             VALUES (NULL, :nomor_tiket, :subjek, :deskripsi, :status, :user_id, CURRENT_TIMESTAMP, NULL, NULL)";
 
         $this->db->query($sql);
@@ -82,7 +83,7 @@ class Ticket
     public function sendTicket($ticketNumber)
     {
         $sql =
-            "UPDATE {$this->table}
+            "UPDATE {$this->tableTicket}
             SET status = 2, queued_at = CURRENT_TIMESTAMP
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
@@ -94,7 +95,7 @@ class Ticket
     public function cancelTicket($ticketNumber)
     {
         $sql =
-            "UPDATE {$this->table}
+            "UPDATE {$this->tableTicket}
             SET status = 6
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
@@ -106,7 +107,7 @@ class Ticket
     public function updateTicket($data, $ticketNumber)
     {
         $sql =
-            "UPDATE {$this->table}
+            "UPDATE {$this->tableTicket}
             SET subjek = :subjek, deskripsi = :deskripsi
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
@@ -120,7 +121,7 @@ class Ticket
     public function processTicket($ticketNumber)
     {
         $sql =
-            "UPDATE {$this->table}
+            "UPDATE {$this->tableTicket}
             SET status = 3
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
@@ -132,7 +133,7 @@ class Ticket
     public function holdTicket($data, $ticketNumber)
     {
         $sql =
-            "UPDATE {$this->table}
+            "UPDATE {$this->tableTicket}
             SET status = 4, tindakan = :tindakan
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
@@ -145,7 +146,7 @@ class Ticket
     public function closeTicket($data, $ticketNumber)
     {
         $sql =
-            "UPDATE {$this->table}
+            "UPDATE {$this->tableTicket}
             SET status = 5, tindakan = :tindakan
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
@@ -158,7 +159,7 @@ class Ticket
     public function deleteTicket($ticketNumber)
     {
         $sql =
-            "DELETE FROM {$this->table}
+            "DELETE FROM {$this->tableTicket}
             WHERE nomor_tiket = :nomor_tiket";
         $this->db->query($sql);
         $this->db->bind("nomor_tiket", $ticketNumber);
