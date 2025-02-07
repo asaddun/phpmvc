@@ -6,23 +6,24 @@ class ProblemController extends Controller
     {
         $data['judul'] = 'Problem';
         $user = $this->model('User')->getUserByUsername($_SESSION['username']);
+        $data['mesin'] = $this->model('Problem')->getAllMesin();
         $data['user'] = $user;
         $this->view('components/header', $data);
         $this->view('problem/index', $data);
         $this->view('components/footer');
     }
 
-    // public function queue()
-    // {
-    //     $data['judul'] = 'Ticket Queue';
-    //     $user = $this->model('User')->getUserByUsername($_SESSION['username']);
-    //     $data['user'] = $user;
-    //     $data['ticket'] = $this->model('Ticket')->getAllQueueTicket();
-    //     $this->view('components/header', $data);
-    //     $this->view('ticket/ticket_status');
-    //     $this->view('ticket/queue', $data);
-    //     $this->view('components/footer');
-    // }
+    public function queue()
+    {
+        $data['judul'] = 'Problem';
+        // $user = $this->model('User')->getUserByUsername($_SESSION['username']);
+        // $data['user'] = $user;
+        $data['problem'] = $this->model('Problem')->getAllQueueTicket();
+        $this->view('components/header', $data);
+        // $this->view('ticket/ticket_status');
+        $this->view('problem/queue', $data);
+        $this->view('components/footer');
+    }
 
     // public function history()
     // {
@@ -36,7 +37,14 @@ class ProblemController extends Controller
 
     public function tambah()
     {
+        $_SESSION['description'] = $_POST['description'];
+        if ($_POST['mesin'] == '') {
+            Swal::setSwal('Gagal', 'Mohon pilih mesin', 'error');
+            header('Location: ' . BASEURL . '/problem');
+            exit;
+        }
         if ($this->model('Problem')->addProblem($_POST) > 0) {
+            unset($_SESSION['description']);
             Swal::setSwal('Berhasil', 'Berhasil menambahkan data', 'success');
             header('Location: ' . BASEURL . '/problem');
             exit;

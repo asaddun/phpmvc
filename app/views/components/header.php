@@ -61,7 +61,6 @@ $url = explode('/', $url);
                             <a href="#" class="nav-link">
                                 <i class="fa-solid fa-ticket"></i>
                                 <p>
-
                                     Ticket
                                     <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
                                 </p>
