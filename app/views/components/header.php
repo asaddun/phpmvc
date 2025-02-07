@@ -39,6 +39,7 @@ $url = explode('/', $url);
         <!-- Sidebar -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="<?= BASEURL ?>" class="brand-link">
+                <i class="fa-solid fa-globe"></i>
                 <span class="brand-text font-weight-light">Websiteku</span>
             </a>
             <div class="sidebar">
