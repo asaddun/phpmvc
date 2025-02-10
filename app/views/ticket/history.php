@@ -42,6 +42,23 @@
             <?php endif; ?>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item <?= ($data['page'] == 1) ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= BASEURL ?>/ticket/history/<?= $data['page'] - 1 ?>">&laquo;</a>
+            </li>
+
+            <?php for ($i = 1; $i <= $data['totalPages']; $i++) : ?>
+                <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                    <a class="page-link" href="<?= BASEURL ?>/ticket/history/<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+
+            <li class="page-item <?= ($data['page'] == $data['totalPages']) ? 'disabled' : '' ?>">
+                <a class="page-link" href="<?= BASEURL ?>/ticket/history/<?= $data['page'] + 1 ?>">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <?php require_once '../app/views/ticket/modals_ticket.php' ?>

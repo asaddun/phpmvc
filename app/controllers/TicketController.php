@@ -26,10 +26,16 @@ class TicketController extends Controller
         $this->view('components/footer');
     }
 
-    public function history()
+    public function history($page = 1)
     {
+        $limit = 10;
+        $start = ($page > 1) ? ($page * $limit) - $limit : 0;
+        $totalData = $this->model('Ticket')->countAllHistoryTicket();
+        $totalPages = ceil($totalData / $limit);
+        $data['page'] = $page;
+        $data['totalPages'] = $totalPages;
         $data['judul'] = 'Ticket History';
-        $data['ticket'] = $this->model('Ticket')->getAllHistoryTicket();
+        $data['ticket'] = $this->model('Ticket')->getAllHistoryTicket($start, $limit);
         $this->view('components/header', $data);
         $this->view('ticket/ticket_status');
         $this->view('ticket/history', $data);

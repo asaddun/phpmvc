@@ -22,15 +22,28 @@ class Ticket
         return $this->db->resultSet();
     }
 
-    public function getAllHistoryTicket()
+    public function countAllHistoryTicket()
+    {
+        $sql =
+            "SELECT COUNT(*) AS total 
+            FROM {$this->tableTicket}
+            WHERE {$this->tableTicket}.status > 4";
+        $this->db->query($sql);
+        return $this->db->single()['total'];
+    }
+
+    public function getAllHistoryTicket($start, $limit)
     {
         $sql =
             "SELECT {$this->tableTicket}.*, {$this->tableUser}.fullname 
             FROM {$this->tableTicket} 
             INNER JOIN {$this->tableUser} 
             ON {$this->tableTicket}.user_id = {$this->tableUser}.id
-            WHERE {$this->tableTicket}.status > 4";
+            WHERE {$this->tableTicket}.status > 4
+            LIMIT :start, :limit";
         $this->db->query($sql);
+        $this->db->bind("start", $start);
+        $this->db->bind("limit", $limit);
         return $this->db->resultSet();
     }
 
