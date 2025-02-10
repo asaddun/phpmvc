@@ -20,7 +20,13 @@
                         <p class="card-title">Masalah:</p>
                         <p class="card-text" style="min-height: 80px;"><?= $problem['deskripsi'] ?>.</p>
                         <?php if ($data['user']['level'] == 2): ?>
-                            <a href="#" class="btn btn-primary">Mulai Perbaikan</a>
+                            <a href="#" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#problemProcessModal"
+                                data-subject="<?= $problem['value'] ?>"
+                                data-description="<?= $problem['deskripsi'] ?>"
+                                data-status="<?= $problem['status'] ?>">
+                                <i class="fa-solid fa-eye"></i> Lihat
+                            </a>
                         <?php endif; ?>
                     </div>
                     <div class="card-footer">
@@ -31,3 +37,5 @@
         <?php endforeach; ?>
     </div>
 </div>
+
+<?php require_once '../app/views/problem/modals_problem.php' ?>
