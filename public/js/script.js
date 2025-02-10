@@ -207,7 +207,7 @@ if (processModal) {
 }
 
 function appendTextareaToForm(formId) {
-  const textarea = document.getElementById("action-textarea");
+  const textarea = document.getElementById("action-process-textarea");
   const form = document.getElementById(formId);
 
   // Check if textarea already exists in the form to avoid duplicates
