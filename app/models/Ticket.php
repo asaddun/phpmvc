@@ -40,6 +40,7 @@ class Ticket
             INNER JOIN {$this->tableUser} 
             ON {$this->tableTicket}.user_id = {$this->tableUser}.id
             WHERE {$this->tableTicket}.status > 4
+            ORDER BY {$this->tableTicket}.created_at DESC
             LIMIT :start, :limit";
         $this->db->query($sql);
         $this->db->bind("start", $start);
