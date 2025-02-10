@@ -142,6 +142,12 @@ $url = explode('/', $url);
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= BASEURL ?>/version" class="nav-link">
+                                <i class="fa-solid fa-table-list"></i>
+                                <p>Version</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= BASEURL ?>/settings" class="nav-link">
                                 <i class="fa-solid fa-gear"></i>
                                 <p>Settings</p>
