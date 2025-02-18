@@ -11,6 +11,12 @@ class EmployeeController extends Controller
         $this->view('components/footer');
     }
 
+    public function all()
+    {
+        $data = $this->model('Employee')->getAllEmployee();
+        echo json_encode($data);
+    }
+
     public function detail($id)
     {
         $data['emp'] = $this->model('Employee')->getEmployeeById($id);
