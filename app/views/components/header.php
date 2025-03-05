@@ -92,7 +92,7 @@ $url = explode('/', $url);
                             <a href="#" class="nav-link">
                                 <i class="fa-solid fa-fire"></i>
                                 <p>
-                                    Problem
+                                    Problem (Under Maintenance)
                                     <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
                                 </p>
                             </a>
@@ -122,7 +122,7 @@ $url = explode('/', $url);
                             <a href="#" class="nav-link">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
                                 <p>
-                                    Service
+                                    Service (Under Maintenance)
                                     <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
                                 </p>
                             </a>
