@@ -27,7 +27,7 @@ $url = explode('/', $url);
     <?php if (isset($_SESSION['username'])): ?>
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <ul class="navbar-nav ps-3">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
                         <i class="fas fa-bars"></i>
@@ -47,7 +47,7 @@ $url = explode('/', $url);
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                         <li class="nav-item">
                             <a href="<?= BASEURL ?>/employee" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="fa-solid fa-user-group"></i></i></i>
                                 <p>Employee</p>
                             </a>
                         </li>
@@ -140,6 +140,12 @@ $url = explode('/', $url);
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= BASEURL ?>/meeting" class="nav-link">
+                                <i class="fa-solid fa-users"></i></i></i>
+                                <p>Meeting</p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= BASEURL ?>/version" class="nav-link">
