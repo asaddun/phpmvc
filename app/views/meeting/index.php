@@ -5,8 +5,6 @@ $rooms = [
     ["nama" => "Ruang Meeting 2", "nomor" => 2],
     ["nama" => "Ruang Meeting 3", "nomor" => 3],
     ["nama" => "Ruang Meeting 4", "nomor" => 4],
-    ["nama" => "Ruang Meeting 5", "nomor" => 5],
-    ["nama" => "Ruang Meeting 6", "nomor" => 6],
 ];
 
 // Generate jam dari 08:00 hingga 21:00 dengan rentang 30 menit
@@ -54,7 +52,8 @@ function getBookingData($room, $time, $bookings, $date)
         }
 
         table {
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             width: 100%;
         }
 
@@ -64,6 +63,27 @@ function getBookingData($room, $time, $bookings, $date)
             padding: 8px;
             text-align: center;
             cursor: pointer;
+            min-width: 100px;
+        }
+
+        .booked {
+            background-color: red;
+            border-left: none;
+            border-right: none;
+            position: relative;
+        }
+
+        .booked .booking-name {
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            overflow: visible;
+            z-index: 1;
+            background: red;
+            color: white;
+            border-radius: 4px;
         }
 
         th {
@@ -71,17 +91,29 @@ function getBookingData($room, $time, $bookings, $date)
         }
 
         .sticky-col {
-            border: 1px solid #ddd;
             position: sticky;
             left: 0;
-            /* Keeps background color */
             background-color: #f4f4f4;
-            /* Ensures it stays above other content */
-            z-index: 1;
+            z-index: 2;
             min-width: 150px;
+            cursor: default;
+            border: 1px solid #ddd;
+        }
+
+        .sticky-col::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            /* Tutup celah antara row */
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            /* Warna border */
+            z-index: 3;
         }
     </style>
-    <h2 class="text-center mb-4">Jadwal Ruang Meeting</h2>
+    <h2 class="text-center pt-3 mb-4">Jadwal Ruang Meeting</h2>
     <div class="mb-3">
         <label for="datePicker">Pilih Tanggal:</label>
         <input type="date" id="datePicker" class="form-date" value="<?= $data['date'] ?>">
@@ -106,15 +138,16 @@ function getBookingData($room, $time, $bookings, $date)
                             $firstBox = $bookData ? ($slot == date("H:i", strtotime($bookData["start_time"]))) : false;
                             $firstTime = $bookData ? date("H:i", strtotime($bookData["start_time"])) : NULL;
                             ?>
+                            class="<?= $booked ? 'booked' : '' ?>
                             <?php if ($booked): ?>
-                            style="background-color: red;"
+                            style=" background-color: red;"
                             onclick="editFormModal(<?= $room['nomor'] ?>, '<?= $firstTime ?>', <?= htmlspecialchars(json_encode($bookData), ENT_QUOTES, 'UTF-8') ?>)"
                             <?php else: ?>
                             style="background-color: #f4f4f4;"
                             onclick="bookingFormModal(<?= $room['nomor'] ?>, '<?= $slot ?>')"
                             <?php endif; ?>>
                             <?php if ($firstBox): ?>
-                                <div class="text-white text-bold">
+                                <div class="booking-name text-white text-bold">
                                     <?= $bookData['user'] ?>
                                 </div>
                             <?php endif; ?>
@@ -304,6 +337,9 @@ function getBookingData($room, $time, $bookings, $date)
 
         for (let hour = 8; hour <= 21; hour++) { // Dari jam 08:00 - 21:00
             for (let min of ["00", "30"]) { // Kelipatan 30 menit
+                if (hour === 21 && min === "30") {
+                    continue;
+                }
                 let time = `${hour}:${min}`;
                 let optionStart = new Option(time, time);
                 let optionEnd = new Option(time, time);
