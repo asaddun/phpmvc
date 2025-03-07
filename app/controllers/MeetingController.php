@@ -96,12 +96,6 @@ class MeetingController extends Controller
             exit;
         }
 
-        if ($this->model('Meeting')->isConflict($_POST['room'], $start_time_formatted, $end_time_formatted)) {
-            Swal::setSwal('Gagal', 'Waktu yang dipilih sudah dibooking oleh orang lain!', 'error');
-            header('Location: ' . BASEURL . '/meeting/' . $_POST['date']);
-            exit;
-        }
-
         if ($this->model('Meeting')->updateBooking($_POST, $start_time_formatted, $end_time_formatted) > 0) {
             Swal::setSwal('Berhasil', 'Berhasil edit data', 'success');
             header('Location: ' . BASEURL . '/meeting/' . $_POST['date']);
