@@ -86,6 +86,18 @@ function getBookingData($room, $time, $bookings, $date)
             border-radius: 4px;
         }
 
+        .booked .booking-name-short {
+            /* Mencegah teks turun ke baris baru */
+            white-space: nowrap;
+            /* Menyembunyikan bagian teks yang kelebihan */
+            overflow: hidden;
+            /* Menampilkan "..." jika teks melebihi batas */
+            text-overflow: ellipsis;
+            /* Pastikan lebar teks tidak melebihi kotak */
+            max-width: 80%;
+            display: block;
+        }
+
         th {
             background-color: #f4f4f4;
         }
@@ -147,7 +159,13 @@ function getBookingData($room, $time, $bookings, $date)
                             onclick="bookingFormModal(<?= $room['nomor'] ?>, '<?= $slot ?>')"
                             <?php endif; ?>>
                             <?php if ($firstBox): ?>
-                                <div class="booking-name text-white text-bold">
+                                <?php
+                                // Hitung durasi booking dalam menit
+                                $start = strtotime($bookData["start_time"]);
+                                $end = strtotime($bookData["end_time"]);
+                                $duration = ($end - $start) / 60; // Konversi ke menit
+                                ?>
+                                <div class="booking-name <?= ($duration == 30) ? 'booking-name-short' : '' ?> text-white text-bold">
                                     <?= $bookData['user'] ?>
                                 </div>
                             <?php endif; ?>
@@ -164,7 +182,7 @@ function getBookingData($room, $time, $bookings, $date)
             <div class="row justify-content-center">
                 <div class="mb-3 col-md-6">
                     <label for="name" class="form-label">Atas Nama</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" pattern="[A-Za-z]+" class="form-control" id="name" name="name" required>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -219,7 +237,7 @@ function getBookingData($room, $time, $bookings, $date)
                     </div>
                     <div class="mb-3">
                         <label for="name_modal" class="form-label">Atas Nama</label>
-                        <input type="text" class="form-control" id="name_modal" name="name" required>
+                        <input type="text" pattern="[A-Za-z]+" class="form-control" id="name_modal" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="duration_modal" class="form-label">Durasi</label>
