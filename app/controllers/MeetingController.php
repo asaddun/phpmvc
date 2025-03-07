@@ -103,11 +103,11 @@ class MeetingController extends Controller
         }
 
         if ($this->model('Meeting')->updateBooking($_POST, $start_time_formatted, $end_time_formatted) > 0) {
-            Swal::setSwal('Berhasil', 'Berhasil menambahkan data', 'success');
+            Swal::setSwal('Berhasil', 'Berhasil mengupdate data', 'success');
             header('Location: ' . BASEURL . '/meeting/' . $_POST['date']);
             exit;
         } else {
-            Swal::setSwal('Gagal', 'Gagal menambahkan data', 'error');
+            Swal::setSwal('Gagal', 'Gagal mengupdate data', 'error');
             header('Location: ' . BASEURL . '/meeting/' . $_POST['date']);
             exit;
         }
