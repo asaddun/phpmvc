@@ -4,9 +4,39 @@ class MeetingController extends Controller
 {
     public function index($date = NULL)
     {
-        $data['judul'] = 'Meeting Schedule';
-        $data['date'] = $date ?? date("Y-m-d");
-        $data['books'] = $this->model('Meeting')->getTodayBooks($data['date']);
+        $title = 'Meeting Schedule';
+        $date = $date ?? date("Y-m-d");
+        $bookings = $this->model('Meeting')->getTodayBooks($date);
+
+        $rooms = $this->model('Meeting')->getRooms();
+        $timeslots = $this->model('Meeting')->getTimeSlots();
+        $bookedSlots = [];
+
+        foreach ($rooms as $room) {
+            foreach ($timeslots as $slot) {
+                $isBooked = $this->model('Meeting')->isBooked($room['nomor'], $slot, $bookings, $date);
+                $bookingData = $this->model('Meeting')->getBookingData($room['nomor'], $slot, $bookings, $date);
+                $firstBox = $bookingData ? ($slot == date("H:i", strtotime($bookingData["start_time"]))) : false;
+                $firstTime = $bookingData ? date("H:i", strtotime($bookingData["start_time"])) : NULL;
+
+                $bookedSlots[$room['nomor']][$slot] = [
+                    "isBooked" => $isBooked,
+                    "bookingData" => $bookingData,
+                    "firstBox" => $firstBox,
+                    "firstTime" => $firstTime
+                ];
+            }
+        }
+
+        $data = [
+            'judul' => $title,
+            'date' => $date,
+            'rooms' => $rooms,
+            'timeslots' => $timeslots,
+            'books' => $bookings,
+            'bookedSlots' => $bookedSlots
+        ];
+
         $this->view('components/header', $data);
         $this->view('meeting/index', $data);
         $this->view('components/footer');

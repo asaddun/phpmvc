@@ -4,10 +4,59 @@ class Meeting
 {
     private $tableBook = 'booking_meets';
     private $db;
+    private $rooms = [
+        ["nama" => "Ruang Meeting 1", "nomor" => 1],
+        ["nama" => "Ruang Meeting 2", "nomor" => 2],
+        ["nama" => "Ruang Meeting 3", "nomor" => 3],
+        ["nama" => "Ruang Meeting 4", "nomor" => 4],
+    ];
 
     public function __construct()
     {
         $this->db = new Database;
+    }
+
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
+
+    public function getTimeSlots()
+    {
+        $timeslots = [];
+        for ($h = 8; $h < 21; $h++) {
+            foreach (["00", "30"] as $m) {
+                $timeslots[] = sprintf("%02d:%s", $h, $m);
+            }
+        }
+        return $timeslots;
+    }
+
+    public function isBooked($room, $time, $bookings, $date)
+    {
+        $timeInMinutes = strtotime("$date $time");
+
+        foreach ($bookings as $booking) {
+            if ($booking["room"] == $room) {
+                $startTime = strtotime($booking["start_time"]);
+                $endTime = strtotime($booking["end_time"]);
+
+                if ($timeInMinutes >= $startTime && $timeInMinutes < $endTime) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function getBookingData($room, $time, $bookings, $date)
+    {
+        foreach ($bookings as $booking) {
+            if ($booking["room"] == $room && strtotime("$date $time") >= strtotime($booking["start_time"]) && strtotime("$date $time") < strtotime($booking["end_time"])) {
+                return $booking;
+            }
+        }
+        return NULL;
     }
 
     public function getTodayBooks($date)

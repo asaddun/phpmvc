@@ -1,49 +1,3 @@
-<?php
-// Data Ruang Meeting
-$rooms = [
-    ["nama" => "Ruang Meeting 1", "nomor" => 1],
-    ["nama" => "Ruang Meeting 2", "nomor" => 2],
-    ["nama" => "Ruang Meeting 3", "nomor" => 3],
-    ["nama" => "Ruang Meeting 4", "nomor" => 4],
-];
-
-// Generate jam dari 08:00 hingga 21:00 dengan rentang 30 menit
-$timeslots = [];
-for ($h = 8; $h < 21; $h++) {
-    foreach (["00", "30"] as $m) {
-        $timeslots[] = sprintf("%02d:%s", $h, $m);
-    }
-}
-
-// Fungsi untuk mengecek apakah waktu ada dalam rentang booking
-function isBooked($room, $time, $bookings, $date)
-{
-    $timeInMinutes = strtotime("$date $time");
-
-    foreach ($bookings as $booking) {
-        if ($booking["room"] == $room) {
-            $startTime = strtotime($booking["start_time"]);
-            $endTime = strtotime($booking["end_time"]);
-
-            if ($timeInMinutes >= $startTime && $timeInMinutes < $endTime) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-function getBookingData($room, $time, $bookings, $date)
-{
-    foreach ($bookings as $booking) {
-        if ($booking["room"] == $room && strtotime("$date $time") >= strtotime($booking["start_time"]) && strtotime("$date $time") < strtotime($booking["end_time"])) {
-            return $booking; // Ambil data pemesan
-        }
-    }
-    return NULL; // Jika tidak ditemukan
-}
-?>
-
 <div class="container">
     <style>
         .table-container {
@@ -127,46 +81,38 @@ function getBookingData($room, $time, $bookings, $date)
     </style>
     <h2 class="text-center pt-3 mb-4">Jadwal Ruang Meeting</h2>
     <div class="mb-3">
-        <label for="datePicker">Pilih Tanggal:</label>
+        <label for="datePicker" class="fw-bold">Pilih Tanggal:</label>
         <input type="date" id="datePicker" class="form-date" value="<?= $data['date'] ?>">
     </div>
     <div class="table-container">
         <table>
             <tr>
                 <th class="sticky-col">Ruang Meeting</th>
-                <?php foreach ($timeslots as $time) {
+                <?php foreach ($data['timeslots'] as $time) {
                     echo "<th>$time</th>";
                 } ?>
             </tr>
-            <?php foreach ($rooms as $room): ?>
+            <?php foreach ($data['rooms'] as $room): ?>
                 <tr>
                     <td class="sticky-col"><?= $room['nama'] ?></td>
-                    <?php foreach ($timeslots as $slot): ?>
+                    <?php foreach ($data['timeslots'] as $slot): ?>
                         <td
                             <?php
-                            $booked =  isBooked($room['nomor'], $slot, $data['books'], $data['date']);
-                            $bookData = getBookingData($room['nomor'], $slot, $data['books'], $data['date']);
-                            // var_dump($bookData);
-                            $firstBox = $bookData ? ($slot == date("H:i", strtotime($bookData["start_time"]))) : false;
-                            $firstTime = $bookData ? date("H:i", strtotime($bookData["start_time"])) : NULL;
+                            $slotData = $data['bookedSlots'][$room['nomor']][$slot];
                             ?>
-                            class="<?= $booked ? 'booked' : '' ?>
-                            <?php if ($booked): ?>
-                            style=" background-color: red;"
-                            onclick="editFormModal(<?= $room['nomor'] ?>, '<?= $firstTime ?>', <?= htmlspecialchars(json_encode($bookData), ENT_QUOTES, 'UTF-8') ?>)"
-                            <?php else: ?>
-                            style="background-color: #f4f4f4;"
-                            onclick="bookingFormModal(<?= $room['nomor'] ?>, '<?= $slot ?>')"
-                            <?php endif; ?>>
-                            <?php if ($firstBox): ?>
+                            class="<?= $slotData['isBooked'] ? 'booked' : '' ?>"
+                            style="background-color: <?= $slotData['isBooked'] ? 'red' : '#f4f4f4' ?>;"
+                            onclick="<?= $slotData['isBooked'] ?
+                                            "editFormModal({$room['nomor']}, '{$slotData['firstTime']}', " . htmlspecialchars(json_encode($slotData['bookingData']), ENT_QUOTES, 'UTF-8') . ")" :
+                                            "bookingFormModal({$room['nomor']}, '{$slot}')" ?>">
+                            <?php if ($slotData['firstBox']): ?>
                                 <?php
-                                // Hitung durasi booking dalam menit
-                                $start = strtotime($bookData["start_time"]);
-                                $end = strtotime($bookData["end_time"]);
+                                $start = strtotime($slotData['bookingData']["start_time"]);
+                                $end = strtotime($slotData['bookingData']["end_time"]);
                                 $duration = ($end - $start) / 60; // Konversi ke menit
                                 ?>
-                                <div class="booking-name <?= ($duration == 30) ? 'booking-name-short' : '' ?> text-white text-bold">
-                                    <?= $bookData['user'] ?>
+                                <div class="booking-name <?= ($duration == 30) ? 'booking-name-short' : '' ?> text-white fw-bold">
+                                    <?= $slotData['bookingData']['user'] ?>
                                 </div>
                             <?php endif; ?>
                         </td>
@@ -182,7 +128,7 @@ function getBookingData($room, $time, $bookings, $date)
             <div class="row justify-content-center">
                 <div class="mb-3 col-md-6">
                     <label for="name" class="form-label">Atas Nama</label>
-                    <input type="text" pattern="[A-Za-z]+" class="form-control" id="name" name="name" required>
+                    <input type="text" pattern="[A-Za-z ]+" class="form-control" id="name" name="name" required>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -237,7 +183,7 @@ function getBookingData($room, $time, $bookings, $date)
                     </div>
                     <div class="mb-3">
                         <label for="name_modal" class="form-label">Atas Nama</label>
-                        <input type="text" pattern="[A-Za-z]+" class="form-control" id="name_modal" name="name" required>
+                        <input type="text" pattern="[A-Za-z ]+" class="form-control" id="name_modal" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="duration_modal" class="form-label">Durasi</label>
