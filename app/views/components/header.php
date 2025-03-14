@@ -8,7 +8,7 @@
     <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         const BASEURL = "<?php echo BASEURL; ?>";
@@ -46,20 +46,20 @@ $url = explode('/', $url);
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                         <li class="nav-item">
-                            <a href="<?= BASEURL ?>/employee" class="nav-link">
+                            <a href="<?= BASEURL ?>/employee" class="nav-link <?= $url[0] == "employee" ? "active" : "" ?>">
                                 <i class="fa-solid fa-user-group"></i></i></i>
                                 <p>Employee</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= BASEURL ?>/todo" class="nav-link">
+                            <a href="<?= BASEURL ?>/todo" class="nav-link <?= $url[0] == "todo" ? "active" : "" ?>">
                                 <i class="fa-solid fa-list-check"></i>
                                 <p>To Do List</p>
                             </a>
                         </li>
                         <!-- SubMenu -->
                         <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link <?= $url[0] == "ticket" ? "active" : "" ?>">
                                 <i class="fa-solid fa-ticket"></i>
                                 <p>
                                     Ticket
@@ -68,19 +68,19 @@ $url = explode('/', $url);
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/ticket" class="nav-link">
+                                    <a href="<?= BASEURL ?>/ticket" class="nav-link <?= ($url[0] == "ticket" && $url[1] == "") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>My Ticket</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/ticket/queue" class="nav-link">
+                                    <a href="<?= BASEURL ?>/ticket/queue" class="nav-link <?= ($url[0] == "ticket" && $url[1] == "queue") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Queue</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/ticket/history" class="nav-link">
+                                    <a href="<?= BASEURL ?>/ticket/history" class="nav-link <?= ($url[0] == "ticket" && $url[1] == "history") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>History</p>
                                     </a>
@@ -89,7 +89,7 @@ $url = explode('/', $url);
                         </li>
                         <!-- SubMenu -->
                         <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link <?= $url[0] == "problem" ? "active" : "" ?>">
                                 <i class="fa-solid fa-fire"></i>
                                 <p>
                                     Problem (Under Maintenance)
@@ -98,19 +98,19 @@ $url = explode('/', $url);
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/problem" class="nav-link">
+                                    <a href="<?= BASEURL ?>/problem" class="nav-link <?= ($url[0] == "problem" && $url[1] == "") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Create</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/problem/queue" class="nav-link">
+                                    <a href="<?= BASEURL ?>/problem/queue" class="nav-link <?= ($url[0] == "problem" && $url[1] == "queue") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Queue</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/problem/history" class="nav-link">
+                                    <a href="<?= BASEURL ?>/problem/history" class="nav-link <?= ($url[0] == "problem" && $url[1] == "history") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>History</p>
                                     </a>
@@ -119,7 +119,7 @@ $url = explode('/', $url);
                         </li>
                         <!-- SubMenu -->
                         <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link <?= $url[0] == "service" ? "active" : "" ?>">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
                                 <p>
                                     Service (Under Maintenance)
@@ -128,13 +128,13 @@ $url = explode('/', $url);
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/service" class="nav-link">
+                                    <a href="<?= BASEURL ?>/service" class="nav-link <?= ($url[0] == "service" && $url[1] == "") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Booking</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/service/history" class="nav-link">
+                                    <a href="<?= BASEURL ?>/service/history" class="nav-link <?= ($url[0] == "service" && $url[1] == "history") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>History</p>
                                     </a>
@@ -142,19 +142,19 @@ $url = explode('/', $url);
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= BASEURL ?>/meeting" class="nav-link">
+                            <a href="<?= BASEURL ?>/meeting" class="nav-link <?= $url[0] == "meeting" ? "active" : "" ?>">
                                 <i class="fa-solid fa-users"></i></i></i>
                                 <p>Meeting</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= BASEURL ?>/version" class="nav-link">
+                            <a href="<?= BASEURL ?>/version" class="nav-link <?= $url[0] == "version" ? "active" : "" ?>">
                                 <i class="fa-solid fa-table-list"></i>
                                 <p>Version</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= BASEURL ?>/settings" class="nav-link">
+                            <a href="<?= BASEURL ?>/settings" class="nav-link <?= $url[0] == "settings" ? "active" : "" ?>">
                                 <i class="fa-solid fa-gear"></i>
                                 <p>Settings</p>
                             </a>
