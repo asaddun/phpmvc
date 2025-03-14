@@ -135,7 +135,7 @@
                 <div class="mb-3 col-md-6">
                     <label for="room">Pilih Ruangan:</label>
                     <select id="room" name="room" class="form-select">
-                        <?php foreach ($rooms as $room): ?>
+                        <?php foreach ($data['rooms'] as $room): ?>
                             <option value="<?= $room['nomor'] ?>"><?= $room['nama'] ?></option>
                         <?php endforeach ?>
                     </select>
