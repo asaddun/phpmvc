@@ -30,7 +30,7 @@
                                 data-status="<?= $ticket['status'] ?>"
                                 data-action="<?= $ticket['tindakan'] ?>"
                                 data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
-                                <i class="bi bi-eye"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </button>
                         </td>
                     </tr>

@@ -26,7 +26,9 @@ require_once '../app/core/AuthCheck.php';
                         <td><?= ticket_status($ticket['status']) ?></td>
                         <td>
                             <?php if (($ticket['username'] == $_SESSION['username']) && ($ticket['status'] == 2)): ?>
-                                <button class="btn btn-danger" onclick="showConfirmationCancel('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-x-lg"></i></button>
+                                <button class="btn btn-danger" onclick="showConfirmationCancel('<?= $ticket['nomor_tiket'] ?>')">
+                                    <i class="fa-solid fa-x"></i>
+                                </button>
                             <?php endif; ?>
                             <button class="btn btn-success"
                                 data-bs-toggle="modal" data-bs-target="#processModal"
@@ -37,7 +39,7 @@ require_once '../app/core/AuthCheck.php';
                                 data-status="<?= $ticket['status'] ?>"
                                 data-ticketNumber="<?= $ticket['nomor_tiket'] ?>"
                                 data-action="<?= $ticket['tindakan'] ?>">
-                                <i class="bi bi-eye"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </button>
                         </td>
                     </tr>

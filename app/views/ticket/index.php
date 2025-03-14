@@ -35,10 +35,10 @@ require_once '../app/core/AuthCheck.php';
                                     data-subject="<?= $ticket['subjek'] ?>"
                                     data-description="<?= $ticket['deskripsi'] ?>"
                                     data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
-                                    <i class="bi bi-pencil"></i>
+                                    <i class="fa-solid fa-pencil"></i>
                                 </button>
-                                <button class="btn btn-danger" onclick="showConfirmationDelete('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-trash"></i></button>
-                                <button class="btn btn-success" onclick="showConfirmationSend('<?= $ticket['nomor_tiket'] ?>')"><i class="bi bi-send"></i></button>
+                                <button class="btn btn-danger" onclick="showConfirmationDelete('<?= $ticket['nomor_tiket'] ?>')"><i class="fa-solid fa-trash"></i></i></button>
+                                <button class="btn btn-success" onclick="showConfirmationSend('<?= $ticket['nomor_tiket'] ?>')"><i class="fa-solid fa-paper-plane"></i></i></button>
                             <?php endif ?>
                             <?php if ($ticket['status'] == 2): ?>
                             <?php endif ?>
@@ -51,7 +51,7 @@ require_once '../app/core/AuthCheck.php';
                                     data-status="<?= $ticket['status'] ?>"
                                     data-action="<?= $ticket['tindakan'] ?>"
                                     data-ticketNumber="<?= $ticket['nomor_tiket'] ?>">
-                                    <i class="bi bi-eye"></i>
+                                    <i class="fa-solid fa-eye"></i>
                                 </button>
                             <?php endif ?>
                         </td>
