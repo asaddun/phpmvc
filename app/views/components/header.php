@@ -26,7 +26,7 @@ $url = explode('/', $url);
 <body class="layout-fixed">
     <?php if (isset($_SESSION['username'])): ?>
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
@@ -173,6 +173,6 @@ $url = explode('/', $url);
 
 
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="padding-top:60px">
             <div class="content pt-3">
             <?php endif; ?>

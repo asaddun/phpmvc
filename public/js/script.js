@@ -16,6 +16,19 @@ $(document).ready(function () {
   });
 });
 
+let prevScrollPos = window.scrollY;
+const navbar = document.querySelector(".main-header");
+
+window.onscroll = function () {
+  let currentScrollPos = window.scrollY;
+  if (prevScrollPos < currentScrollPos) {
+    navbar.style.top = "-60px"; // Navbar hilang saat scroll ke bawah
+  } else {
+    navbar.style.top = "0"; // Navbar muncul saat scroll ke atas
+  }
+  prevScrollPos = currentScrollPos;
+};
+
 function togglePassword() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon-password");
