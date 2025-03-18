@@ -2,7 +2,7 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title"><?= $data['emp']['nama']; ?></h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary"><?= $data['emp']['nomor']; ?></h6>
+            <h6 class="card-text mb-2 text-body-secondary"><?= $data['emp']['nomor']; ?></h6>
             <p class="card-text mt-3"><?= $data['emp']['pekerjaan']; ?></p>
             <p class="card-text"><?= $data['emp']['email']; ?></p>
             <div class="d-flex justify-content-between align-items-center">
