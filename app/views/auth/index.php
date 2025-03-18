@@ -19,7 +19,7 @@
                             <div class="input-group mb-2">
                                 <input type="password" class="form-control" id="password" name="password">
                                 <button class="btn btn-outline-info text-dark" type="button" id="button-addon2" onclick="togglePassword()">
-                                    <i class="bi bi-eye" id="icon-password"></i></i>
+                                    <i class="fa-solid fa-eye" id="icon-password"></i>
                                 </button>
                             </div>
                         </div>
