@@ -26,7 +26,8 @@ $url = explode('/', $url);
 <body class="layout-fixed">
     <?php if (isset($_SESSION['username'])): ?>
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top"
+            style="transition: top 0.3s;">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
