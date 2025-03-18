@@ -58,7 +58,8 @@ $url = explode('/', $url);
                             </a>
                         </li>
                         <!-- SubMenu -->
-                        <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
+                        <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
+                        <li class="nav-item <?= $url[0] == "ticket" ? "menu-open" : "" ?>">
                             <a href="#" class="nav-link <?= $url[0] == "ticket" ? "active" : "" ?>">
                                 <i class="fa-solid fa-ticket"></i>
                                 <p>
@@ -88,7 +89,7 @@ $url = explode('/', $url);
                             </ul>
                         </li>
                         <!-- SubMenu -->
-                        <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
+                        <li class="nav-item <?= $url[0] == "problem" ? "menu-open" : "" ?>">
                             <a href="#" class="nav-link <?= $url[0] == "problem" ? "active" : "" ?>">
                                 <i class="fa-solid fa-fire"></i>
                                 <p>
@@ -118,7 +119,7 @@ $url = explode('/', $url);
                             </ul>
                         </li>
                         <!-- SubMenu -->
-                        <li class="nav-item"> <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
+                        <li class="nav-item <?= $url[0] == "service" ? "menu-open" : "" ?>">
                             <a href="#" class="nav-link <?= $url[0] == "service" ? "active" : "" ?>">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
                                 <p>
