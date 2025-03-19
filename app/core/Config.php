@@ -5,7 +5,7 @@ define('BASEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/phpmvc/public');
 //DB
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', 'asaddun237');
+define('DB_PASS', 'root1234');
 define('DB_NAME', 'mydb');
 
 //Email
