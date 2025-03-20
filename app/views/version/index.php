@@ -19,3 +19,16 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function copyTable() {
+        let table = document.getElementById("dataTable");
+        let range = document.createRange();
+        range.selectNode(table);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+        alert("Data tabel telah disalin!");
+    }
+</script>

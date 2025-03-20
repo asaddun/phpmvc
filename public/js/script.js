@@ -44,17 +44,6 @@ function togglePassword() {
   }
 }
 
-function copyTable() {
-  let table = document.getElementById("dataTable");
-  let range = document.createRange();
-  range.selectNode(table);
-  window.getSelection().removeAllRanges();
-  window.getSelection().addRange(range);
-  document.execCommand("copy");
-  window.getSelection().removeAllRanges();
-  alert("Data tabel telah disalin!");
-}
-
 const problemProcessModal = document.getElementById("problemProcessModal");
 if (problemProcessModal) {
   problemProcessModal.addEventListener("show.bs.modal", function (event) {
