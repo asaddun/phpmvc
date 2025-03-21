@@ -1,8 +1,8 @@
 <div class="container">
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="col-md-5">
-            <div class="card">
-                <div class="card-header text-center fs-5">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-dark text-center fs-4 fw-medium">
                     Selamat Datang di Websiteku
                 </div>
                 <div class="card-body">
