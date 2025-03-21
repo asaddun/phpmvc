@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Websiteku | <?php echo $data['judul'] ?></title>
     <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         const BASEURL = "<?php echo BASEURL; ?>";
@@ -26,8 +25,8 @@ $url = explode('/', $url);
 <body class="layout-fixed">
     <?php if (isset($_SESSION['username'])): ?>
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top"
-            style="transition: top 0.3s;">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top px-3"
+            style="transition: 0.4s;">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
@@ -39,7 +38,7 @@ $url = explode('/', $url);
 
         <!-- Sidebar -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="<?= BASEURL ?>" class="brand-link">
+            <a href="<?= BASEURL ?>" class="brand-link text-decoration-none">
                 <i class="fa-solid fa-globe"></i>
                 <span class="brand-text font-weight-light">Websiteku</span>
             </a>
