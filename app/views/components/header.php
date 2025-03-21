@@ -23,6 +23,10 @@ $url = explode('/', $url);
 ?>
 
 <body class="layout-fixed">
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Loading...</p>
+    </div>
     <?php if (isset($_SESSION['username'])): ?>
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top px-3"
