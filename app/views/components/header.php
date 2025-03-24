@@ -24,7 +24,8 @@ $url = explode('/', $url);
 
 <body class="layout-fixed">
     <div class="preloader flex-column justify-content-center align-items-center">
-        <div class="spinner-border text-primary" role="status"></div>
+        <!-- <div class="spinner-border text-primary" role="status"></div> -->
+        <div class="loader"></div>
         <p class="mt-2">Loading...</p>
     </div>
     <?php if (isset($_SESSION['username'])): ?>
