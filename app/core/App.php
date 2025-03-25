@@ -22,8 +22,10 @@ class App
 
         // method
         if (isset($url[1])) {
-            if (method_exists($this->controller, $url[1])) {
-                $this->method = $url[1];
+            // Konversi kebab-case ke underscore
+            $method = str_replace('-', '_', $url[1]);
+            if (method_exists($this->controller, $method)) {
+                $this->method = $method;
                 unset($url[1]);
             }
         }
