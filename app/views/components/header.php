@@ -24,7 +24,6 @@ $url = explode('/', $url);
 
 <body class="layout-fixed">
     <div class="preloader flex-column justify-content-center align-items-center">
-        <!-- <div class="spinner-border text-primary" role="status"></div> -->
         <div class="loader"></div>
         <p class="mt-2">Loading...</p>
     </div>
@@ -94,41 +93,43 @@ $url = explode('/', $url);
                             </ul>
                         </li>
                         <!-- SubMenu -->
-                        <li class="nav-item <?= $url[0] == "problem" ? "menu-open" : "" ?>">
-                            <a href="#" class="nav-link <?= $url[0] == "problem" ? "active" : "" ?>">
-                                <i class="fa-solid fa-fire"></i>
-                                <p>
-                                    Problem (Under Maintenance)
-                                    <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/problem" class="nav-link <?= ($url[0] == "problem" && $url[1] == "") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Create</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/problem/queue" class="nav-link <?= ($url[0] == "problem" && $url[1] == "queue") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Queue</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/problem/history" class="nav-link <?= ($url[0] == "problem" && $url[1] == "history") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>History</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        <div class="d-none"> <!-- Sembunyikan menu -->
+                            <li class="nav-item <?= $url[0] == "problem" ? "menu-open" : "" ?>">
+                                <a href="#" class="nav-link <?= $url[0] == "problem" ? "active" : "" ?>">
+                                    <i class="fa-solid fa-fire"></i>
+                                    <p>
+                                        Problem
+                                        <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= BASEURL ?>/problem" class="nav-link <?= ($url[0] == "problem" && $url[1] == "") ? "active" : "" ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Create</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= BASEURL ?>/problem/queue" class="nav-link <?= ($url[0] == "problem" && $url[1] == "queue") ? "active" : "" ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Queue</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= BASEURL ?>/problem/history" class="nav-link <?= ($url[0] == "problem" && $url[1] == "history") ? "active" : "" ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>History</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
                         <!-- SubMenu -->
                         <li class="nav-item <?= $url[0] == "service" ? "menu-open" : "" ?>">
                             <a href="#" class="nav-link <?= $url[0] == "service" ? "active" : "" ?>">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
                                 <p>
-                                    Service (Under Maintenance)
+                                    Service
                                     <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
                                 </p>
                             </a>
@@ -136,13 +137,19 @@ $url = explode('/', $url);
                                 <li class="nav-item">
                                     <a href="<?= BASEURL ?>/service" class="nav-link <?= ($url[0] == "service" && $url[1] == "") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Booking</p>
+                                        <p>History</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/service/history" class="nav-link <?= ($url[0] == "service" && $url[1] == "history") ? "active" : "" ?>">
+                                    <a href="<?= BASEURL ?>/service/order" class="nav-link <?= ($url[0] == "service" && $url[1] == "order") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>History</p>
+                                        <p>Order</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/service/price-list" class="nav-link <?= ($url[0] == "service" && $url[1] == "price-list") ? "active" : "" ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Price List</p>
                                     </a>
                                 </li>
                             </ul>
