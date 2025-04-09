@@ -9,22 +9,32 @@
                     <form id="registerForm" action="<?= BASEURL ?>/auth/register" method="POST">
                         <div class="mb-2">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required
-                                value="<?php echo isset($_SESSION['formData']['username']) ? htmlspecialchars($_SESSION['formData']['username']) : ''; ?>" autofocus>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_SESSION['formData']['username']) ? htmlspecialchars($_SESSION['formData']['username']) : ''; ?>" required autofocus>
+                            </div>
+
                         </div>
                         <div class="mb-2">
                             <label for="fullname" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" required
-                                value="<?php echo isset($_SESSION['formData']['fullname']) ? htmlspecialchars($_SESSION['formData']['fullname']) : ''; ?>">
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                                <input type="text" class="form-control" id="fullname" name="fullname" required
+                                    value="<?php echo isset($_SESSION['formData']['fullname']) ? htmlspecialchars($_SESSION['formData']['fullname']) : ''; ?>">
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required
-                                value="<?php echo isset($_SESSION['formData']['email']) ? htmlspecialchars($_SESSION['formData']['email']) : ''; ?>">
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                <input type="email" class="form-control" id="email" name="email" required
+                                    value="<?php echo isset($_SESSION['formData']['email']) ? htmlspecialchars($_SESSION['formData']['email']) : ''; ?>">
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                                 <input type="password" class="form-control" id="password" name="password" required>
                                 <button class="btn btn-outline-info text-dark" type="button" id="button-addon2" onclick="togglePassword()">
                                     <i class="fa-solid fa-eye" id="icon-password"></i></i>
@@ -33,8 +43,11 @@
                         </div>
                         <div class="mb-2">
                             <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                            <input type="password" class="form-control" id="password_confirmation"
-                                name="password_confirmation" required>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-repeat"></i></span>
+                                <input type="password" class="form-control" id="password_confirmation"
+                                    name="password_confirmation" required>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col text-start mt-2">

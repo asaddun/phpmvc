@@ -12,11 +12,15 @@
                     <form id="loginForm" action="<?= BASEURL ?>/auth/signin<?= $redirect ?>" method="POST">
                         <div class="mb-2">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_SESSION['formData']['username']) ? htmlspecialchars($_SESSION['formData']['username']) : ''; ?>" autofocus>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_SESSION['formData']['username']) ? htmlspecialchars($_SESSION['formData']['username']) : ''; ?>" autofocus>
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group mb-2">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                                 <input type="password" class="form-control" id="password" name="password">
                                 <button class="btn btn-outline-info text-dark" type="button" id="button-addon2" onclick="togglePassword()">
                                     <i class="fa-solid fa-eye" id="icon-password"></i>
