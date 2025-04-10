@@ -8,7 +8,7 @@
     <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script>
         const BASEURL = "<?php echo BASEURL; ?>";
     </script>
@@ -150,6 +150,36 @@ $url = explode('/', $url);
                                     <a href="<?= BASEURL ?>/service/price-list" class="nav-link <?= ($url[0] == "service" && $url[1] == "price-list") ? "active" : "" ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Price List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- SubMenu -->
+                        <li class="nav-item <?= $url[0] == "queue" ? "menu-open" : "" ?>">
+                            <a href="#" class="nav-link <?= $url[0] == "queue" ? "active" : "" ?>">
+                                <i class="fa-solid fa-users-line"></i>
+                                <p>
+                                    Antrian
+                                    <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/queue" class="nav-link <?= ($url[0] == "queue" && $url[1] == "") ? "active" : "" ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Display</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/queue/register" class="nav-link <?= ($url[0] == "queue" && $url[1] == "register") ? "active" : "" ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Register</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= BASEURL ?>/queue/counter" class="nav-link <?= ($url[0] == "queue" && $url[1] == "counter") ? "active" : "" ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Counter</p>
                                     </a>
                                 </li>
                             </ul>
