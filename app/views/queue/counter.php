@@ -50,8 +50,8 @@
             </div>
             <div class="modal-footer d-flex justify-content-evenly">
                 <button id="cancel-button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-x"></i> Cancel</button>
-                <button id="call-again-button" class="btn btn-warning"><i class="fa-solid fa-volume-high"></i> Call Again</button>
-                <button id="process-button" class="btn btn-success" data-bs-dismiss="modal"><i class="fa-solid fa-user-clock"></i> Process</button>
+                <button id="call-again-button" class="btn btn-warning" disabled><i class="fa-solid fa-volume-high"></i> Call Again</button>
+                <button id="process-button" class="btn btn-success" data-bs-dismiss="modal" disabled><i class="fa-solid fa-user-clock"></i> Process</button>
                 <button id="next-button" class="btn btn-primary" disabled><i class="fa-solid fa-forward"></i> Call Next</button>
             </div>
         </div>
@@ -173,6 +173,7 @@
         document.getElementById('queue-code').innerHTML = '...';
         document.getElementById('call-label').innerHTML = 'Calling';
         cancelButton.disabled = false;
+        processButton.disabled = true;
     });
 
     function call(counter) {
@@ -194,6 +195,8 @@
                     //     `Memanggil ${data.kode_antrian} di ${data.loket}`;
                     document.getElementById('queue-code').innerHTML = data.code;
                     document.getElementById('queue-id').innerHTML = data.id;
+                    processButton.disabled = false;
+                    callAgainButton.disabled = false;
                 } else {
                     document.getElementById('queue-code').innerHTML = data.code;
                 }
