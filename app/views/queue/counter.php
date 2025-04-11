@@ -49,10 +49,18 @@
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-evenly">
-                <button id="cancel-button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-x"></i> Cancel</button>
-                <button id="call-again-button" class="btn btn-warning" disabled><i class="fa-solid fa-volume-high"></i> Call Again</button>
-                <button id="process-button" class="btn btn-success" data-bs-dismiss="modal" disabled><i class="fa-solid fa-user-clock"></i> Process</button>
-                <button id="next-button" class="btn btn-primary" disabled><i class="fa-solid fa-forward"></i> Call Next</button>
+                <button id="cancel-button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="fa-solid fa-x"></i> Cancel
+                </button>
+                <button id="call-again-button" class="btn btn-warning" disabled>
+                    <i class="fa-solid fa-volume-high"></i> Call Again
+                </button>
+                <button id="process-button" class="btn btn-success" data-bs-dismiss="modal" disabled>
+                    <i class="fa-solid fa-user-clock"></i> Process
+                </button>
+                <button id="next-button" class="btn btn-primary" disabled>
+                    <i class="fa-solid fa-forward"></i> Call Next
+                </button>
             </div>
         </div>
     </div>
@@ -155,6 +163,9 @@
             document.getElementById('queue-id').innerHTML = data.id;
             document.getElementById('queue-code').innerHTML = data.code;
             cancelButton.disabled = true;
+            callAgainButton.disabled = false;
+            processButton.disabled = false;
+            nextButton.disabled = false;
             console.log('Data loaded ke modal:', data);
         } else {
             // Bisa kosongin modal
@@ -191,8 +202,6 @@
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    // document.getElementById('queue').innerText =
-                    //     `Memanggil ${data.kode_antrian} di ${data.loket}`;
                     document.getElementById('queue-code').innerHTML = data.code;
                     document.getElementById('queue-id').innerHTML = data.id;
                     processButton.disabled = false;
@@ -200,11 +209,19 @@
                 } else {
                     document.getElementById('queue-code').innerHTML = data.code;
                 }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error calling queue');
             });
+
+        fetchActive();
     }
 
     function callAgain(counter) {
         const id = document.getElementById('queue-id').innerHTML;
+        callAgainButton.innerHTML = '<div class="spinner-border spinner-border-sm" role="status"></div>';
+        callAgainButton.disabled = true;
         if (id) {
             fetch(`call-again/${id}`, {
                     method: 'POST',
@@ -221,9 +238,18 @@
                         document.getElementById('call-label').innerHTML = 'Calling Again';
                     } else {
                         document.getElementById('queue-code').innerHTML = data.code;
+                        alert('Error calling again');
                     }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Error calling again');
                 });
         }
+        setTimeout(() => {
+            callAgainButton.innerHTML = '<i class="fa-solid fa-volume-high"></i> Call Again';
+            callAgainButton.disabled = false;
+        }, 3000);
     }
 
     function processQueue(counter) {
