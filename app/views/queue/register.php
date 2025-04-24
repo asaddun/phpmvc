@@ -20,8 +20,8 @@
         background-color: #d0e7ff;
     }
 </style>
-<div class="container">
-    <form action="<?= BASEURL ?>/queue/add" method="POST">
+<div class="container flex-grow-1 d-flex flex-column">
+    <form action="<?= BASEURL ?>/queue/add" method="POST" class="flex-grow-1 d-flex flex-column">
         <div class="row justify-content-center mb-4">
             <div class="col-md-4">
                 <div class="antrian-option" onclick="selectAntrian('A')" id="option-A">
@@ -44,20 +44,31 @@
         </div>
         <input type="hidden" name="choice" id="choice">
 
-        <div class="text-center">
+        <div class="text-center flex-grow-1 d-flex flex-column justify-content-end align-items-center">
             <button type="submit" class="btn btn-primary">Antri</button>
         </div>
     </form>
 </div>
 
 <script>
-    function selectAntrian(jenis) {
-        let selected = jenis;
-        document.getElementById('choice').value = jenis;
-
-        document.getElementById('option-A').classList.remove('selected');
-        document.getElementById('option-B').classList.remove('selected');
-        document.getElementById('option-C').classList.remove('selected');
-        document.getElementById('option-' + jenis).classList.add('selected');
+    function clearSelectedOptions() {
+        document.querySelectorAll('.antrian-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
     }
+
+    function selectAntrian(jenis) {
+        clearSelectedOptions();
+        document.getElementById('option-' + jenis).classList.add('selected');
+        document.getElementById('choice').value = jenis;
+    }
+
+    document.addEventListener('click', function(event) {
+        const clickInsideCol = event.target.closest('.col-md-4');
+        const isSubmitButton = event.target.closest('button[type="submit"]');
+        if (!clickInsideCol && !isSubmitButton) {
+            clearSelectedOptions();
+            document.getElementById('choice').value = '';
+        }
+    });
 </script>

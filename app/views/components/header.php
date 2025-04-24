@@ -22,7 +22,7 @@ $url = explode('/', $url);
 // var_dump($url);
 ?>
 
-<body class="layout-fixed">
+<body class="layout-fixed" style="background-color: #f4f6f9;">
     <div class="preloader flex-column justify-content-center align-items-center">
         <div class="loader"></div>
         <p class="mt-2">Loading...</p>
@@ -215,6 +215,6 @@ $url = explode('/', $url);
 
 
 
-        <div class="content-wrapper" style="padding-top:60px">
-            <div class="content pt-3">
+        <div class="content-wrapper d-flex flex-column" style="padding-top:60px">
+            <div class="content flex-grow-1 pt-3 d-flex flex-column">
             <?php endif; ?>

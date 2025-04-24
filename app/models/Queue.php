@@ -36,7 +36,7 @@ class Queue
         return $this->db->rowCount();
     }
 
-    public function getCounterData()
+    public function getCounterData($date)
     {
         $sql =
             "SELECT t1.id, t1.counter, t1.code, t1.status, t1.called_at
@@ -45,8 +45,9 @@ class Queue
             ON t1.counter = t2.counter
             AND t1.called_at < t2.called_at
             AND t2.status > 1
-            WHERE t1.status > 1 AND t2.counter IS NULL";
+            WHERE t1.status > 1 AND t2.counter IS NULL AND DATE(t1.called_at) = :date";
         $this->db->query($sql);
+        $this->db->bind("date", $date);
         $this->db->execute();
         return $this->db->resultSet();
     }
@@ -58,6 +59,18 @@ class Queue
             FROM {$this->table} 
             WHERE status = 1
             ORDER BY type ASC";
+        $this->db->query($sql);
+        $this->db->execute();
+        return $this->db->resultSet();
+    }
+
+    public function getWaitingQueues()
+    {
+        $sql =
+            "SELECT code, type 
+            FROM {$this->table} 
+            WHERE status = 1 
+            ORDER BY type, number";
         $this->db->query($sql);
         $this->db->execute();
         return $this->db->resultSet();

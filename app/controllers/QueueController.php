@@ -43,7 +43,8 @@ class QueueController extends Controller
 
     public function get_counter_data()
     {
-        $counterData = $this->model('Queue')->getCounterData();
+        $today = date('Y-m-d');
+        $counterData = $this->model('Queue')->getCounterData($today);
         echo json_encode($counterData);
     }
 
@@ -51,6 +52,26 @@ class QueueController extends Controller
     {
         $activeTypes = $this->model('Queue')->getActiveType();
         echo json_encode($activeTypes);
+    }
+
+    public function get_waiting_queue()
+    {
+        // Inisialisasi awal dengan key kosong
+        $queues = [
+            'A' => [],
+            'B' => [],
+            'C' => []
+        ];
+
+        // Ambil dari database yang status = 1
+        $rawQueues = $this->model('Queue')->getWaitingQueues();
+
+        foreach ($rawQueues as $item) {
+            $type = $item['type'];
+            $queues[$type][] = $item['code'];
+        }
+
+        echo json_encode($queues);
     }
 
     public function call($type)
@@ -112,12 +133,18 @@ class QueueController extends Controller
     public function add()
     {
         $today = date('Y-m-d');
-        $maxNumber = $this->model('Queue')->getMaxNumberByType($_POST['choice'], $today);
+        $type = $_POST['choice'];
+        if (empty($type)) {
+            Swal::setSwal('Gagal', 'Gagal mendaftar antrian, harap pilih jenis antrian', 'error');
+            header('Location: ' . BASEURL . '/queue/register/');
+            exit;
+        }
+        $maxNumber = $this->model('Queue')->getMaxNumberByType($type, $today);
         $newNumber = $maxNumber + 1;
-        $code = $_POST['choice'] . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+        $code = $type . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
         $data = [
             'code' => $code,
-            'type' => $_POST['choice'],
+            'type' => $type,
             'number' => $newNumber,
         ];
         if ($this->model('Queue')->addQueue($data) > 0) {
