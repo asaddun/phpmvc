@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 class="mb-5">Reset Password</h3>
+    <h3 class="mb-5">Settings - Reset Password</h3>
     <div class="row">
         <div class="col-md-3 mb-5">
             <div class="list-group">
