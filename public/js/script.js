@@ -1,34 +1,3 @@
-$(document).ready(function () {
-  // Saat area di luar sidebar diklik, tutup sidebar (khusus mobile)
-  $(document).click(function (event) {
-    var body = $("body");
-    var sidebar = $(".main-sidebar"); // Sidebar
-    var toggleButton = $('[data-widget="pushmenu"]'); // Tombol toggle
-
-    // Jika sidebar terbuka dan klik bukan di sidebar atau tombol toggle
-    if (
-      body.hasClass("sidebar-open") &&
-      !$(event.target).closest(sidebar).length &&
-      !$(event.target).closest(toggleButton).length
-    ) {
-      body.removeClass("sidebar-open").addClass("sidebar-collapse");
-    }
-  });
-});
-
-let prevScrollPos = window.scrollY;
-const navbar = document.querySelector(".main-header");
-
-window.onscroll = function () {
-  let currentScrollPos = window.scrollY;
-  if (prevScrollPos < currentScrollPos) {
-    navbar.style.top = "-60px"; // Navbar hilang saat scroll ke bawah
-  } else {
-    navbar.style.top = "0"; // Navbar muncul saat scroll ke atas
-  }
-  prevScrollPos = currentScrollPos;
-};
-
 function togglePassword() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon-password");
@@ -43,6 +12,45 @@ function togglePassword() {
     icon.classList.add("fa-eye");
   }
 }
+
+const sidebar = document.querySelector(".sidebar");
+const overlay = document.querySelector(".sidebar-overlay");
+document
+  .getElementById("sidebarToggle")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    sidebar.classList.toggle("toggle");
+    if (window.innerWidth <= 768) {
+      overlay.style.display = sidebar.classList.contains("toggle")
+        ? "block"
+        : "none";
+    } else {
+      document.querySelector(".main").classList.toggle("toggle");
+    }
+  });
+
+overlay.addEventListener("click", function () {
+  sidebar.classList.remove("toggle");
+  overlay.style.display = "none";
+});
+
+// Update icon when submenu is toggled
+const toggles = document.querySelectorAll('[data-bs-toggle="collapse"]');
+toggles.forEach((toggle) => {
+  const icon = toggle.querySelector(".submenu-icon");
+  const targetId = toggle.getAttribute("href");
+  const collapseEl = document.querySelector(targetId);
+
+  collapseEl.addEventListener("show.bs.collapse", () => {
+    icon.classList.remove("fa-chevron-down");
+    icon.classList.add("fa-minus");
+  });
+
+  collapseEl.addEventListener("hide.bs.collapse", () => {
+    icon.classList.remove("fa-minus");
+    icon.classList.add("fa-chevron-down");
+  });
+});
 
 const problemProcessModal = document.getElementById("problemProcessModal");
 if (problemProcessModal) {

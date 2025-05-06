@@ -153,7 +153,7 @@
                     </select>
                 </div>
             </div>
-            <div class="text-center pb-5">
+            <div class="text-center">
                 <button type="submit" class="btn btn-success">Booking</button>
             </div>
         </form>

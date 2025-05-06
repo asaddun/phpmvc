@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Websiteku | <?php echo $data['judul'] ?></title>
-    <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
     <script>
         const BASEURL = "<?php echo BASEURL; ?>";
     </script>
@@ -22,199 +21,121 @@ $url = explode('/', $url);
 // var_dump($url);
 ?>
 
-<body class="layout-fixed" style="background-color: #f4f6f9;">
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <div class="loader"></div>
-        <p class="mt-2">Loading...</p>
-    </div>
+<body>
     <?php if (isset($_SESSION['username'])): ?>
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top px-3"
-            style="transition: 0.4s;">
-            <ul class="navbar-nav">
+        <!-- Sidebar -->
+        <aside class="sidebar d-flex flex-column p-3 shadow">
+            <a href="<?= BASEURL ?>" class="logo text-center mb-4"><i class="fa-solid fa-globe me-2"></i>Websiteku</a>
+            <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
+                    <a href="<?= BASEURL ?>/employee" class="nav-link <?= $url[0] == "employee" ? "active" : "" ?>">
+                        <div><i class="fa-solid fa-user-group"></i> Employee</div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= BASEURL ?>/todo" class="nav-link <?= $url[0] == "todo" ? "active" : "" ?>">
+                        <div><i class="fa-solid fa-list-check"></i> To Do List</div>
+                    </a>
+                </li>
+
+                <!-- Ticket Menu -->
+                <li>
+                    <a class="nav-link <?= $url[0] == "ticket" ? "active" : "" ?>" data-bs-toggle="collapse" href="#submenu1" role="button" aria-expanded="false"
+                        aria-controls="submenu1">
+                        <span><i class="fa-solid fa-ticket"></i> Ticket</span>
+                        <i class="fa-solid fa-chevron-down submenu-icon"></i>
+                    </a>
+                    <div class="collapse submenu" id="submenu1">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "ticket" && $url[1] == "") ? "active" : "" ?>" href="<?= BASEURL ?>/ticket"><i class="fa-solid fa-ticket"></i> My Ticket</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "ticket" && $url[1] == "queue") ? "active" : "" ?>" href="<?= BASEURL ?>/ticket/queue"><i class="fa-solid fa-user-group"></i> Queue</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "ticket" && $url[1] == "history") ? "active" : "" ?>" href="<?= BASEURL ?>/ticket/history"><i class="fa-solid fa-calendar-day"></i> History</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Service Menu -->
+                <li>
+                    <a class="nav-link <?= $url[0] == "service" ? "active" : "" ?>" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false"
+                        aria-controls="submenu2">
+                        <span><i class="fa-solid fa-screwdriver-wrench"></i> Service</span>
+                        <i class="fa-solid fa-chevron-down submenu-icon"></i>
+                    </a>
+                    <div class="collapse submenu" id="submenu2">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "service" && $url[1] == "") ? "active" : "" ?>" href="<?= BASEURL ?>/service"><i class="fa-solid fa-calendar-day"></i> History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "service" && $url[1] == "order") ? "active" : "" ?>" href="<?= BASEURL ?>/service/order"><i class="fa-solid fa-square-plus"></i> Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "service" && $url[1] == "price-list") ? "active" : "" ?>" href="<?= BASEURL ?>/service/price-list"><i class="fa-solid fa-money-bills"></i> Price List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Antrian Menu -->
+                <li>
+                    <a class="nav-link <?= $url[0] == "queue" ? "active" : "" ?>" data-bs-toggle="collapse" href="#submenu3" role="button" aria-expanded="false"
+                        aria-controls="submenu3">
+                        <span><i class="fa-solid fa-users-line"></i> Antrian</span>
+                        <i class="fa-solid fa-chevron-down submenu-icon"></i>
+                    </a>
+                    <div class="collapse submenu" id="submenu3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "queue" && $url[1] == "") ? "active" : "" ?>" href="<?= BASEURL ?>/queue"><i class="fa-solid fa-tv"></i> Display</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "queue" && $url[1] == "register") ? "active" : "" ?>" href="<?= BASEURL ?>/queue/register"><i class="fa-solid fa-square-plus"></i> Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= ($url[0] == "queue" && $url[1] == "counter") ? "active" : "" ?>" href="<?= BASEURL ?>/queue/counter"><i class="fa-solid fa-microphone"></i> Counter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="<?= BASEURL ?>/meeting" class="nav-link <?= $url[0] == "meeting" ? "active" : "" ?>">
+                        <div><i class="fa-solid fa-users"></i> Meeting</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= BASEURL ?>/version" class="nav-link <?= $url[0] == "version" ? "active" : "" ?>">
+                        <div><i class="fa-solid fa-table-list"></i> Version</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= BASEURL ?>/settings" class="nav-link <?= $url[0] == "settings" ? "active" : "" ?>">
+                        <div><i class="fa-solid fa-gear"></i> Settings</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= BASEURL ?>/auth/signout" class="nav-link">
+                        <div><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
                     </a>
                 </li>
             </ul>
-        </nav>
-
-        <!-- Sidebar -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="<?= BASEURL ?>" class="brand-link text-decoration-none">
-                <i class="fa-solid fa-globe"></i>
-                <span class="brand-text font-weight-light">Websiteku</span>
-            </a>
-            <div class="sidebar">
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                        <li class="nav-item">
-                            <a href="<?= BASEURL ?>/employee" class="nav-link <?= $url[0] == "employee" ? "active" : "" ?>">
-                                <i class="fa-solid fa-user-group"></i></i></i>
-                                <p>Employee</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= BASEURL ?>/todo" class="nav-link <?= $url[0] == "todo" ? "active" : "" ?>">
-                                <i class="fa-solid fa-list-check"></i>
-                                <p>To Do List</p>
-                            </a>
-                        </li>
-                        <!-- SubMenu -->
-                        <!-- Tambahkan 'menu-open' jika ingin terbuka by default -->
-                        <li class="nav-item <?= $url[0] == "ticket" ? "menu-open" : "" ?>">
-                            <a href="#" class="nav-link <?= $url[0] == "ticket" ? "active" : "" ?>">
-                                <i class="fa-solid fa-ticket"></i>
-                                <p>
-                                    Ticket
-                                    <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/ticket" class="nav-link <?= ($url[0] == "ticket" && $url[1] == "") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>My Ticket</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/ticket/queue" class="nav-link <?= ($url[0] == "ticket" && $url[1] == "queue") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Queue</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/ticket/history" class="nav-link <?= ($url[0] == "ticket" && $url[1] == "history") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>History</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- SubMenu -->
-                        <div class="d-none"> <!-- Sembunyikan menu -->
-                            <li class="nav-item <?= $url[0] == "problem" ? "menu-open" : "" ?>">
-                                <a href="#" class="nav-link <?= $url[0] == "problem" ? "active" : "" ?>">
-                                    <i class="fa-solid fa-fire"></i>
-                                    <p>
-                                        Problem
-                                        <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= BASEURL ?>/problem" class="nav-link <?= ($url[0] == "problem" && $url[1] == "") ? "active" : "" ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Create</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= BASEURL ?>/problem/queue" class="nav-link <?= ($url[0] == "problem" && $url[1] == "queue") ? "active" : "" ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Queue</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= BASEURL ?>/problem/history" class="nav-link <?= ($url[0] == "problem" && $url[1] == "history") ? "active" : "" ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>History</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </div>
-                        <!-- SubMenu -->
-                        <li class="nav-item <?= $url[0] == "service" ? "menu-open" : "" ?>">
-                            <a href="#" class="nav-link <?= $url[0] == "service" ? "active" : "" ?>">
-                                <i class="fa-solid fa-screwdriver-wrench"></i>
-                                <p>
-                                    Service
-                                    <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/service" class="nav-link <?= ($url[0] == "service" && $url[1] == "") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>History</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/service/order" class="nav-link <?= ($url[0] == "service" && $url[1] == "order") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Order</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/service/price-list" class="nav-link <?= ($url[0] == "service" && $url[1] == "price-list") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Price List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- SubMenu -->
-                        <li class="nav-item <?= $url[0] == "queue" ? "menu-open" : "" ?>">
-                            <a href="#" class="nav-link <?= $url[0] == "queue" ? "active" : "" ?>">
-                                <i class="fa-solid fa-users-line"></i>
-                                <p>
-                                    Antrian
-                                    <i class="right fas fa-angle-left"></i> <!-- Panah Indikator -->
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/queue" class="nav-link <?= ($url[0] == "queue" && $url[1] == "") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Display</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/queue/register" class="nav-link <?= ($url[0] == "queue" && $url[1] == "register") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Register</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= BASEURL ?>/queue/counter" class="nav-link <?= ($url[0] == "queue" && $url[1] == "counter") ? "active" : "" ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Counter</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= BASEURL ?>/meeting" class="nav-link <?= $url[0] == "meeting" ? "active" : "" ?>">
-                                <i class="fa-solid fa-users"></i></i></i>
-                                <p>Meeting</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= BASEURL ?>/version" class="nav-link <?= $url[0] == "version" ? "active" : "" ?>">
-                                <i class="fa-solid fa-table-list"></i>
-                                <p>Version</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= BASEURL ?>/settings" class="nav-link <?= $url[0] == "settings" ? "active" : "" ?>">
-                                <i class="fa-solid fa-gear"></i>
-                                <p>Settings</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= BASEURL ?>/auth/signout" class="nav-link">
-                                <i class="fa-solid fa-door-open"></i>
-                                <p>Logout</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
         </aside>
+        <div class="sidebar-overlay" style="display: none;"></div>
 
 
-
-        <div class="content-wrapper d-flex flex-column" style="padding-top:60px">
-            <div class="content flex-grow-1 pt-3 d-flex flex-column">
+        <main class="main d-flex flex-column">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand bg-white px-3 shadow-sm" style="height: 60px;">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" id="sidebarToggle">
+                            <i class="fa-solid fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="container py-5 flex-grow-1 d-flex flex-column">
             <?php endif; ?>
