@@ -52,26 +52,28 @@ class Queue
         return $this->db->resultSet();
     }
 
-    public function getActiveType()
+    public function getActiveType($date)
     {
         $sql =
             "SELECT DISTINCT type
             FROM {$this->table} 
-            WHERE status = 1
+            WHERE status = 1 AND DATE(created_at) = :date
             ORDER BY type ASC";
         $this->db->query($sql);
+        $this->db->bind("date", $date);
         $this->db->execute();
         return $this->db->resultSet();
     }
 
-    public function getWaitingQueues()
+    public function getWaitingQueues($date)
     {
         $sql =
             "SELECT code, type 
             FROM {$this->table} 
-            WHERE status = 1 
+            WHERE status = 1 AND DATE(created_at) = :date
             ORDER BY type, number";
         $this->db->query($sql);
+        $this->db->bind("date", $date);
         $this->db->execute();
         return $this->db->resultSet();
     }

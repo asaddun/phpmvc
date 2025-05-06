@@ -50,21 +50,23 @@ class QueueController extends Controller
 
     public function get_queue()
     {
-        $activeTypes = $this->model('Queue')->getActiveType();
+        $today = date('Y-m-d');
+        $activeTypes = $this->model('Queue')->getActiveType($today);
         echo json_encode($activeTypes);
     }
 
     public function get_waiting_queue()
     {
         // Inisialisasi awal dengan key kosong
+        $today = date('Y-m-d');
         $queues = [
             'A' => [],
             'B' => [],
             'C' => []
         ];
 
-        // Ambil dari database yang status = 1
-        $rawQueues = $this->model('Queue')->getWaitingQueues();
+        // Ambil dari database yang status = 1 dan hari ini
+        $rawQueues = $this->model('Queue')->getWaitingQueues($today);
 
         foreach ($rawQueues as $item) {
             $type = $item['type'];
