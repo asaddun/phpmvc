@@ -43,6 +43,7 @@ class Problem
     {
         $sql = "SELECT * FROM {$this->tableMesin}";
         $this->db->query($sql);
+        $this->db->execute();
         return $this->db->resultSet();
     }
 
@@ -55,6 +56,7 @@ class Problem
             ON {$this->tableProblem}.asset_id = {$this->tableMesin}.asset_id
             WHERE {$this->tableProblem}.status > 0";
         $this->db->query($sql);
+        $this->db->execute();
         return $this->db->resultSet();
     }
 }

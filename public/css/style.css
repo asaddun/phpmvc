@@ -1,6 +1,7 @@
 body {
   /* overflow-x: hidden; */
   min-height: 100vh;
+  background-color: #f4f6f9;
 }
 
 .sidebar {
@@ -72,7 +73,6 @@ body {
   margin-left: 250px;
   height: 100vh;
   transition: margin-left 0.3s ease;
-  background-color: #f4f6f9;
 }
 
 .main.toggle {

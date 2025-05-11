@@ -2,6 +2,7 @@
     .card-text {
         display: -webkit-box;
         -webkit-line-clamp: 3;
+        line-clamp: 3;
         /* Menampilkan maksimal 3 baris */
         -webkit-box-orient: vertical;
         overflow: hidden;
