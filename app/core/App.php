@@ -12,8 +12,9 @@ class App
 
         // mencari controller
         if (isset($url[0])) {
-            if (file_exists('../app/controllers/' . $url[0] . 'Controller.php')) {
-                $this->controller = $url[0] . 'Controller';
+            $controllerName = ucfirst($url[0]) . 'Controller';
+            if (file_exists('../app/controllers/' . $controllerName . '.php')) {
+                $this->controller = $controllerName;
                 unset($url[0]);
             }
         }

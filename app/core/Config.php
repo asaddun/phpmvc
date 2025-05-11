@@ -1,6 +1,7 @@
 <?php
 
-define('BASEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/phpmvc/public');
+// define('BASEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/phpmvc/public');
+define('BASEURL', (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']);
 
 //DB
 define('DB_HOST', 'localhost');
