@@ -78,7 +78,8 @@ class QueueController extends Controller
 
     public function call($type)
     {
-        $queue = $this->model('Queue')->getActiveQueueByType($type);
+        $today = date('Y-m-d');
+        $queue = $this->model('Queue')->getActiveQueueByType($type, $today);
         $data = [
             'id' => $queue['id'],
             'counter' => $_POST['counter'],

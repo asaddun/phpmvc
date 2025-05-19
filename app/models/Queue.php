@@ -78,14 +78,15 @@ class Queue
         return $this->db->resultSet();
     }
 
-    public function getActiveQueueByType($type)
+    public function getActiveQueueByType($type, $date)
     {
         $sql =
             "SELECT * FROM {$this->table}
-            WHERE type = :type AND status = 1
+            WHERE type = :type AND status = 1 AND DATE(created_at) = :date
             ORDER BY created_at ASC";
         $this->db->query($sql);
         $this->db->bind("type", $type);
+        $this->db->bind("date", $date);
         $this->db->execute();
         return $this->db->single();
     }
