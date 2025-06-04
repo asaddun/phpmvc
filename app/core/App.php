@@ -16,7 +16,10 @@ class App
             if (file_exists('../app/controllers/' . $controllerName . '.php')) {
                 $this->controller = $controllerName;
                 unset($url[0]);
+            } else {
+                return $this->loadNotFoundPage();
             }
+            // unset($url[0]);
         }
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
@@ -28,6 +31,9 @@ class App
             if (method_exists($this->controller, $method)) {
                 $this->method = $method;
                 unset($url[1]);
+            } else {
+                // Method tidak ditemukan
+                return $this->loadNotFoundPage();
             }
         }
 
@@ -36,8 +42,23 @@ class App
             $this->params = array_values($url);
         }
 
+        // Cek jumlah parameter yang dibutuhkan
+        try {
+            $ref = new ReflectionMethod($this->controller, $this->method);
+            $requiredParams = $ref->getNumberOfRequiredParameters();
+
+            if (count($this->params) < $requiredParams) {
+                return $this->loadNotFoundPage();
+            }
+
+            // Jalankan
+            call_user_func_array([$this->controller, $this->method], $this->params);
+        } catch (Exception $e) {
+            return $this->loadNotFoundPage();
+        }
+
         // jalankan controller, method, dan params
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        // call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     public function parseURL()
@@ -48,5 +69,13 @@ class App
             $url = explode('/', $url);
             return $url;
         }
+    }
+
+    public function loadNotFoundPage()
+    {
+        require_once '../app/controllers/NotFoundController.php';
+        $notFound = new NotFoundController();
+        $notFound->index();
+        return;
     }
 }
