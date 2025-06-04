@@ -38,7 +38,7 @@
                     <div class="card-title fw-bold"><?= $book['title'] ?></div>
                     <p class="card-text"><?= $book['description'] ?></p>
                     <div class="mt-auto d-flex justify-content-between">
-                        <a class="btn btn-primary" href="<?= BASEURL . '/book/detail/' . $book['book_id'] ?>">Detail</a>
+                        <a class="btn btn-primary" href="<?= BASEURL . '/book/detail/' . $book['isbn'] ?>">Detail</a>
                         <button
                             class="btn btn-success add-to-cart"
                             data-id=<?= $book['book_id'] ?>
@@ -90,12 +90,21 @@
                         // Update badge keranjang
                         console.log(data.message);
                         Swal.fire({
-                            title: "Berhasil",
-                            text: data.message,
-                            icon: "success"
+                            title: data.message,
+                            // text: data.message,
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 2000
                         });
                     } else {
-                        alert(data.message || 'Gagal menambahkan ke keranjang.');
+                        // alert(data.message || 'Gagal menambahkan ke keranjang.');
+                        Swal.fire({
+                            title: data.message || 'Gagal menambahkan ke keranjang.',
+                            // text: data.message,
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
                     }
                 });
         });

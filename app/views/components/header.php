@@ -107,6 +107,11 @@ $url = explode('/', $url);
                     </a>
                 </li>
                 <li>
+                    <a href="<?= BASEURL ?>/book" class="nav-link <?= $url[0] == "book" ? "active" : "" ?>">
+                        <div><i class="fa-solid fa-book"></i> Bookstore</div>
+                    </a>
+                </li>
+                <li>
                     <a href="<?= BASEURL ?>/version" class="nav-link <?= $url[0] == "version" ? "active" : "" ?>">
                         <div><i class="fa-solid fa-table-list"></i> Version</div>
                     </a>
