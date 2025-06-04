@@ -32,8 +32,25 @@ class App
                 $this->method = $method;
                 unset($url[1]);
             } else {
-                // Method tidak ditemukan
-                return $this->loadNotFoundPage();
+                if (!method_exists($this->controller, 'index')) {
+                    return $this->loadNotFoundPage();
+                }
+
+                // Cek apakah index menerima parameter, meskipun opsional
+                try {
+                    $ref = new ReflectionMethod($this->controller, 'index');
+                    $paramCount = $ref->getNumberOfParameters(); // bukan yang required!
+
+                    if ($paramCount === 0) {
+                        // index() bahkan tidak menerima parameter apapun
+                        return $this->loadNotFoundPage();
+                    }
+
+                    // method tetap index, url[1] jadi param
+                    // jangan unset url[1], biar jadi $this->params
+                } catch (Exception $e) {
+                    return $this->loadNotFoundPage();
+                }
             }
         }
 
