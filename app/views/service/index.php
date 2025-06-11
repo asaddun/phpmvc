@@ -6,7 +6,6 @@
     <table class="table table-hover text-center bg-white">
         <thead class="text-white" style="background-color: #383434">
             <tr>
-                <th scope="col">Tanggal</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Kendaraan</th>
                 <th scope="col">Total</th>
