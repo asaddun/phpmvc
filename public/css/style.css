@@ -1,14 +1,17 @@
 body {
-  /* overflow-x: hidden; */
   min-height: 100vh;
   background-color: #f4f6f9;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar {
   transition: transform 0.3s ease;
   transform: translateX(0);
   height: 100vh;
-  background-color: #003b46;
+  background-color: white;
   padding-top: 1rem;
   position: fixed;
   left: 0;
@@ -16,6 +19,11 @@ body {
   width: 250px;
   color: white;
   z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar.toggle {
@@ -23,22 +31,29 @@ body {
 }
 
 .sidebar .logo {
-  color: white;
+  color: black;
   text-decoration: none;
   font-size: 24px;
 }
 
 .sidebar .nav-link {
-  color: white;
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.sidebar .menu-title {
+  color: black;
+  padding-left: 0.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
 .sidebar .nav-link:hover,
 .sidebar .nav-link.active {
-  color: white;
-  background-color: #005766;
+  color: black;
+  background-color: lightgray;
 }
 
 .sidebar .nav-link i {
