@@ -124,8 +124,20 @@
     updateQueueDisplay();
     updateWaitingDisplay();
 
+    let isPlaying = false;
+    let queue = [];
+
     function playAudioSequence(files) {
-        if (!files.length) return;
+        if (!files.length) {
+            if (queue.length > 0) {
+                const nextFiles = queue.shift();
+                playAudioSequence(nextFiles);
+            } else {
+                isPlaying = false;
+            }
+            return;
+        }
+
         const audio = new Audio(BASEURL + '/audio/' + files[0]);
         audio.play();
         audio.onended = function() {
@@ -142,8 +154,12 @@
         angka.forEach(num => files.push(`${num}.mp3`));
         files.push('menuju.mp3');
         files.push(`${counter}.mp3`);
-        console.log(files);
 
-        playAudioSequence(files);
+        if (isPlaying) {
+            queue.push(files);
+        } else {
+            isPlaying = true;
+            playAudioSequence(files);
+        }
     }
 </script>
