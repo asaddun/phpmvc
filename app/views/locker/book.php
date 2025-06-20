@@ -101,7 +101,7 @@ require_once '../app/core/AuthCheck.php';
                     document.getElementById('locker-container').innerHTML = html;
 
                     // Listen semua locker
-                    document.querySelectorAll('.locker.bg-success').forEach(locker => {
+                    document.querySelectorAll('.locker').forEach(locker => {
                         // Event listener untuk locker yang diklik
                         locker.addEventListener('click', () => {
                             // Ambil data dari data attribut locker
