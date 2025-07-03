@@ -3,13 +3,45 @@
 class TestController extends Controller
 {
 
-    public function page()
+    public function webhook()
     {
-        $url = rtrim($_GET['url'], '/');
-        $url = filter_var($url, FILTER_SANITIZE_URL);
-        $url = explode('/', $url);
-        var_dump($_GET['url']);
-        var_dump($url[1]);
+        // Lakukan HTTP request ke locker
+        $body = '
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Email</title>
+        </head>
+
+        <body>
+            <p>Selamat pagi tim</p><br>
+            <p>Dengan ini mengingatkan hari ini akan dilakukan Weekly Progres Report dikarenakan besok Jumat 27/06/2025 bertepatan dengan hari libur</p><br>
+            <p>Terima kasih atas perhatiannya.</p>
+        </body>
+
+        </html>
+        ';
+        $data = [
+            "email" => ["m.asad@adyawinsa.com", "ahmad.dhani@adyawinsa.com"],
+            "subject" => "Laporan tes dari PHP ke n8n",
+            "message" => $body,
+        ];
+        $url = "http://localhost:5678/webhook/send-email";
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true); // ini penting
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // encode ke JSON
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json', // wajib agar n8n parsing sebagai JSON
+            'Content-Length: ' . strlen(json_encode($data)) // tambahan aman
+        ]);
+
+        $result = curl_exec($ch);
+        curl_close($ch);
     }
 
     public function email()
