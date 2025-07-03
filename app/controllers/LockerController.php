@@ -1,8 +1,22 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 require_once '../app/core/AuthCheck.php';
 
 class LockerController extends Controller
 {
+    public function index()
+    {
+        $lockers = $this->model('Locker')->getAllLockers();
+        $data = [
+            'judul' => 'Log Locker',
+            'lockers' => $lockers,
+        ];
+        $this->view('components/header', $data);
+        $this->view('locker/log', $data);
+        $this->view('components/footer');
+    }
+
     public function book()
     {
         $data = [
@@ -13,29 +27,47 @@ class LockerController extends Controller
         $this->view('components/footer');
     }
 
+    public function control()
+    {
+        $data = [
+            'judul' => 'Control Locker',
+        ];
+        $this->view('components/header', $data);
+        $this->view('locker/control', $data);
+        $this->view('components/footer');
+    }
+
+    public function access()
+    {
+        $data = [
+            'judul' => 'Access Locker',
+        ];
+        $this->view('components/header', $data);
+        $this->view('locker/access', $data);
+        $this->view('components/footer');
+    }
+
     public function range($range = 1)
     {
         $limit = 20;
         $start = ($range - 1) * $limit;
-        $lockers = $this->model('Locker')->getAllLockers($start, $limit);
+        $lockers = $this->model('Locker')->getRangeLockers($start, $limit);
         echo json_encode($lockers);
     }
 
-    public function index()
-    {
-        $data = [
-            'judul' => 'Log Locker',
-        ];
-        $this->view('components/header', $data);
-        $this->view('locker/log');
-        $this->view('components/footer');
-    }
-
-    public function range_log($range = 1)
+    public function range_log($range, $locker)
     {
         $limit = 20;
         $start = ($range - 1) * $limit;
-        $log = $this->model('Locker')->getLog($start, $limit);
+        $log = $this->model('Locker')->getLog($start, $limit, $locker);
+        echo json_encode($log);
+    }
+
+    public function range_log_locker($range, $locker)
+    {
+        $limit = 20;
+        $start = ($range - 1) * $limit;
+        $log = $this->model('Locker')->getLogByLocker($start, $limit, $locker);
         echo json_encode($log);
     }
 
@@ -43,6 +75,20 @@ class LockerController extends Controller
     {
         $log = $this->model('Locker')->getLogActive();
         echo json_encode($log);
+    }
+
+    public function location()
+    {
+        $location = $this->model('Locker')->getLocation();
+        echo json_encode($location);
+    }
+
+    public function access_data($range)
+    {
+        $limit = 20;
+        $start = ($range - 1) * $limit;
+        $access = $this->model('Locker')->getAccessData($start, $limit);
+        echo json_encode($access);
     }
 
     public function booking()

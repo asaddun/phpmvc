@@ -1,21 +1,3 @@
-<h4>Loker Aktif</h4>
-<div class="mb-2">
-    <button id="refreshActiveBtn" class="btn btn-secondary"><i class="fa-solid fa-refresh"></i></button>
-</div>
-<table id="logActive-table" class="table">
-    <thead>
-        <tr>
-            <th>Waktu Booking</th>
-            <th>Nama</th>
-            <th>Loker</th>
-            <th>Durasi</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
-<h4 class="mt-4">Riwayat Loker</h4>
 <style>
     .custom-outline {
         display: inline-block;
@@ -31,11 +13,45 @@
         user-select: none;
     }
 </style>
-<div class="mb-2">
+
+<div class="mb-4">
+    <a href="/locker/book" class="btn btn-outline-secondary">Book</a>
+    <a href="/locker/control" class="btn btn-outline-secondary">Control</a>
+</div>
+
+<h4>Loker Terpakai</h4>
+
+<div class="mb-2 d-none">
+    <button id="refreshActiveBtn" class="btn btn-secondary"><i class="fa-solid fa-refresh"></i></button>
+</div>
+
+<table id="logActive-table" class="table">
+    <thead>
+        <tr>
+            <th>Waktu Booking</th>
+            <th>Nama</th>
+            <th>Loker</th>
+            <th>Durasi</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<h4 class="mt-4">Riwayat Loker</h4>
+
+<div class="d-flex flex-row gap-2 mb-2">
+    <select name="select-locker" id="select-locker" class="form-select w-25">
+        <option value="all">Semua Loker</option>
+        <?php foreach ($data['lockers'] as $locker): ?>
+            <option value="<?= $locker['lkr_locker_id'] ?>"><?= $locker['locker_name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+    <button class="btn btn-success ms-1" id="submit-locker">Sumbit</button>
     <button id="prevBtn" class="btn btn-secondary"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="pageNumber" class="custom-outline"></span>
     <button id="nextBtn" class="btn btn-secondary"><i class="fa-solid fa-chevron-right"></i></button>
-    <button id="refreshBtn" class="btn btn-secondary ms-3"><i class="fa-solid fa-refresh"></i></button>
+    <button id="refreshBtn" class="btn btn-secondary"><i class="fa-solid fa-refresh"></i></button>
 </div>
 
 <table id="log-table" class="table">
@@ -54,11 +70,11 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         let currentPage = 1;
-        let counterElements = []; // Simpan elemen counter untuk update tiap detiks
+        let lockerId = 'all';
+        let counterElements = []; // Simpan elemen counter untuk update tiap detik
 
         function fetchLogActive() {
             const tbody = document.querySelector('#logActive-table tbody');
-            tbody.innerHTML = '';
             counterElements = [];
             fetch(`${BASEURL}/locker/active-log`)
                 .then(response => {
@@ -68,6 +84,7 @@
                     return response.json();
                 })
                 .then(data => {
+                    tbody.innerHTML = '';
                     data.forEach(item => {
                         const row = document.createElement('tr');
 
@@ -97,11 +114,11 @@
             console.log(counterElements);
         }
 
-        function fetchLog(range) {
+        function fetchLog(range, locker) {
             document.getElementById("pageNumber").textContent = range;
             const tbody = document.querySelector('#log-table tbody');
             tbody.innerHTML = '';
-            fetch(`${BASEURL}/locker/range-log/${range}`)
+            fetch(`${BASEURL}/locker/range-log/${range}/${locker}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response error');
@@ -150,38 +167,55 @@
                 const diffSec = Math.floor(diffMs / 1000);
                 const hours = Math.floor(diffSec / 3600);
                 const minutes = Math.floor((diffSec % 3600) / 60);
+                const seconds = diffSec % 60;
 
                 element.textContent = `${hours} jam ${minutes} menit`;
             });
         }
 
+        // setInterval(updateCounters, 1000);
+
         // Lalu update setiap 1/2 menit
         setInterval(() => {
             fetchLogActive();
-            fetchLog(currentPage);
+            // fetchLog(currentPage, lockerId);
         }, 30000);
+
+        document.getElementById('submit-locker').addEventListener('click', function() {
+            lockerId = document.getElementById('select-locker').value;
+            currentPage = 1;
+            if (lockerId) {
+                fetchLog(currentPage, lockerId);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: 'Mohon pilih loker.'
+                });
+            }
+        })
 
         document.getElementById("prevBtn").addEventListener("click", () => {
             if (currentPage > 1) {
                 currentPage--;
-                fetchLog(currentPage);
+                fetchLog(currentPage, lockerId);
             }
         });
 
         document.getElementById("nextBtn").addEventListener("click", () => {
             currentPage++;
-            fetchLog(currentPage);
+            fetchLog(currentPage, lockerId);
         });
 
         document.getElementById("refreshBtn").addEventListener("click", () => {
-            fetchLog(currentPage);
+            fetchLog(currentPage, lockerId);
         });
 
         document.getElementById("refreshActiveBtn").addEventListener("click", () => {
             fetchLogActive();
         });
 
-        fetchLog(currentPage);
+        fetchLog(currentPage, lockerId);
         fetchLogActive();
     })
 </script>
