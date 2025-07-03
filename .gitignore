@@ -1,2 +1,5 @@
 # Ignore mesin.json
 storage/json/mesin.json
+
+# Tes file
+public/tes.php
