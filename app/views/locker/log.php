@@ -17,6 +17,7 @@
 <div class="mb-4">
     <a href="/locker/book" class="btn btn-outline-secondary">Book</a>
     <a href="/locker/control" class="btn btn-outline-secondary">Control</a>
+    <a href="/locker/access" class="btn btn-outline-secondary">Access</a>
 </div>
 
 <h4>Loker Terpakai</h4>

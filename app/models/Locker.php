@@ -111,7 +111,7 @@ class Locker
         return $this->db->resultSet();
     }
 
-    public function getAccessData($start, $limit)
+    public function getAccessData($start, $limit, $keyword)
     {
         $sql =
             "SELECT 
@@ -120,12 +120,46 @@ class Locker
                 {$this->tableEmployee}.c_employee_id,
                 {$this->tableAccess}.lkr_location_id
             FROM {$this->tableAccess}
-            JOIN {$this->tableEmployee} ON {$this->tableAccess}.C_EMPLOYEE_ID = {$this->tableEmployee}.C_EMPLOYEE_ID
-            LIMIT :start, :limit";
+            JOIN {$this->tableEmployee} ON {$this->tableAccess}.C_EMPLOYEE_ID = {$this->tableEmployee}.C_EMPLOYEE_ID ";
+        if ($keyword) {
+            $sql .= " WHERE {$this->tableEmployee}.nama_karyawan LIKE :keyword ";
+        }
+        $sql .= " LIMIT :start, :limit";
         $this->db->query($sql);
+        if ($keyword) {
+            $this->db->bind("keyword", "%$keyword%");
+        }
         $this->db->bind("start", $start);
         $this->db->bind("limit", $limit);
         $this->db->execute();
         return $this->db->resultSet();
+    }
+
+    public function updateControl($data)
+    {
+        $sql =
+            "UPDATE {$this->tableLocker}
+            SET isactive = :isactive, lkr_location_id = :lkr_location_id
+            WHERE lkr_locker_id = :lkr_locker_id";
+        $this->db->query($sql);
+        $this->db->bind("isactive", $data['isactive']);
+        $this->db->bind("lkr_location_id", $data['location']);
+        $this->db->bind("lkr_locker_id", $data['lkr_locker_id']);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function updateAccess($data)
+    {
+        $sql =
+            "UPDATE {$this->tableAccess}
+            SET lkr_location_id = :lkr_location_id
+            WHERE lkr_access_id = :lkr_access_id AND c_employee_id = :c_employee_id";
+        $this->db->query($sql);
+        $this->db->bind("lkr_location_id", $data['location']);
+        $this->db->bind("c_employee_id", $data['c_employee_id']);
+        $this->db->bind("lkr_access_id", $data['lkr_access_id']);
+        $this->db->execute();
+        return $this->db->rowCount();
     }
 }

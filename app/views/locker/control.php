@@ -20,84 +20,168 @@
 </table>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let currentPage = 1;
+    let currentPage = 1;
+    document.addEventListener('DOMContentLoaded', async function() {
+        await fetchLockers(currentPage);
+    });
 
-        async function fetchLockers(range) {
-            const tbody = document.querySelector('#locker-table tbody');
-            tbody.innerHTML = '';
-            let lockerLocations = [];
+    // Tambahkan event listener ke tiap tombol
+    document.addEventListener('click', async function(e) {
+        const button = e.target.closest('.save-button');
+        if (!button) return;
+        const row = button.closest('tr'); // Ambil baris tempat tombol diklik
+        const lockerId = button.dataset.id; // Ambil ID dari data-id
+        const isactive = row.querySelector('.isactive').value;
+        const location = row.querySelector('.location').value;
 
-            await fetch(`${BASEURL}/locker/location`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response error');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    lockerLocations = data;
-                })
-                .catch(error => {
-                    console.error('Gagal fetch data:', error);
-                });
+        const data = {
+            lkr_locker_id: lockerId,
+            isactive,
+            location,
+        };
 
-            fetch(`${BASEURL}/locker/range/${range}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response error');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        const status = item.isavailable === 'Y' ? 'Free' : 'Booked';
-                        const locationOptions = lockerLocations.map(loc => {
-                            const selected = loc.lkr_location_id === item.lkr_location_id ? 'selected' : '';
-                            return `<option value="${loc.lkr_location_id}" ${selected}>${loc.location}</option>`;
-                        }).join('');
+        try {
+            // Kirim data ke server
+            const response = await fetch(`${BASEURL}/locker/control-update`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+            });
 
-                        row.innerHTML = `
+            const result = await response.json();
+            const status = result.status;
+
+            if (status === 'success') {
+                alert(result.message);
+                fetchLockers(currentPage);
+            } else {
+                alert(result.message);
+            }
+
+        } catch (error) {
+            console.error('Gagal koneksi ke server:', error);
+            alert('Terjadi kesalahan jaringan');
+        }
+    });
+
+    async function fetchLockers(range) {
+        const tbody = document.querySelector('#locker-table tbody');
+        tbody.innerHTML = '';
+        let lockerLocations = [];
+
+        await fetch(`${BASEURL}/locker/location`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                lockerLocations = data;
+            })
+            .catch(error => {
+                console.error('Gagal fetch data:', error);
+            });
+
+        fetch(`${BASEURL}/locker/range/${range}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    const status = item.isavailable === 'Y' ? 'Free' : 'Booked';
+                    const locationName = lockerLocations.find(loc => loc.lkr_location_id === item.lkr_location_id)?.location || '-';;
+                    const locationOptions = lockerLocations.map(loc => {
+                        const selected = loc.lkr_location_id === item.lkr_location_id ? 'selected' : '';
+                        return `<option value="${loc.lkr_location_id}" ${selected}>${loc.location}</option>`;
+                    }).join('');
+
+                    row.innerHTML = `
                         <td>${item.locker_name}</td>
                         <td>${status}</td>
-                        <form>
+                    `;
+
+                    if (status === 'Booked') {
+                        row.innerHTML += `
+                            <td>Active</td>
+                            <td>${locationName}</td>
                             <td>
-                                <select name="isactive" class="form-select form-select-sm">
+                                <button class="btn btn-success save-button" data-id="${item.lkr_locker_id}" disabled>
+                                    Save
+                                </button>
+                            </td>
+                        `;
+                    } else {
+                        row.innerHTML += `
+                            <td>
+                                <select class="isactive form-select">
                                     <option value="Y" ${item.isactive === 'Y' ? 'selected' : ''}>Active</option>
                                     <option value="N" ${item.isactive === 'N' ? 'selected' : ''}>Not Active</option>
                                 </select>
                             </td>
                             <td>
-                                <select name="location" class="form-select form-select-sm">
+                                <select class="location form-select">
                                     ${locationOptions}
                                 </select>
                             </td>
-                            <input type="hidden" name="id" value="${item.lkr_locker_id}">
-                            <td><button type="submit" class="btn btn-success">Save</button></td>
-                        </form>
+                            <td>
+                                <button class="btn btn-success save-button" data-id="${item.lkr_locker_id}">
+                                    Save
+                                </button>
+                            </td>
                         `;
-                        tbody.appendChild(row);
+                    }
+                    tbody.appendChild(row);
 
-                    });
-                })
-                .catch(error => {
-                    console.error('Gagal fetch data:', error);
                 });
-        }
+            })
+            .catch(error => {
+                console.error('Gagal fetch data:', error);
+            });
+    }
 
-        fetchLockers(currentPage);
-
-        document.getElementById("prevBtn").addEventListener("click", () => {
-            if (currentPage > 1) {
-                currentPage--;
-                fetchLockers(currentPage);
-            }
-        });
-
-        document.getElementById("nextBtn").addEventListener("click", () => {
-            currentPage++;
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
             fetchLockers(currentPage);
-        });
-    })
+        }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        currentPage++;
+        fetchLockers(currentPage);
+    });
+
+
+
+
+
+    // document.querySelectorAll('form').forEach(form => {
+    //     form.addEventListener('submit', async function(e) {
+    //         e.preventDefault(); // mencegah form reload halaman
+
+    //         const formData = new FormData(form);
+
+    //         try {
+    //             const response = await fetch(`${BASEURL}/locker/control-update`, {
+    //                 method: 'POST',
+    //                 body: formData,
+    //             });
+
+    //             const result = await response.json();
+
+    //             if (result.success) {
+    //                 alert('Update berhasil!');
+    //             } else {
+    //                 alert('Gagal update: ' + result.message);
+    //             }
+    //         } catch (err) {
+    //             console.error('Error saat update:', err);
+    //             alert('Terjadi kesalahan saat update');
+    //         }
+    //     });
+    // });
 </script>

@@ -37,6 +37,52 @@ class LockerController extends Controller
         $this->view('components/footer');
     }
 
+    public function control_update()
+    {
+        $raw = file_get_contents('php://input');
+        $data = json_decode($raw, true);
+        if (!$data) {
+            echo json_encode(['status' => 'error', 'message' => 'Data tidak ada']);
+            exit;
+        }
+        if ($data['lkr_locker_id'] && $data['isactive'] && $data['location']) {
+            if ($this->model('Locker')->updateControl($data) > 0) {
+                // echo json_encode(['status' => 'success', 'message' => $data]);
+                echo json_encode(['status' => 'success', 'message' => 'Update berhasil']);
+                exit;
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Update gagal']);
+                exit;
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Data tidak valid']);
+            exit;
+        }
+    }
+
+    public function access_update()
+    {
+        $raw = file_get_contents('php://input');
+        $data = json_decode($raw, true);
+        if (!$data) {
+            echo json_encode(['status' => 'error', 'message' => 'Data tidak ada']);
+            exit;
+        }
+        if ($data['lkr_access_id'] && $data['c_employee_id'] && $data['location']) {
+            if ($this->model('Locker')->updateAccess($data) > 0) {
+                // echo json_encode(['status' => 'success', 'message' => $data]);
+                echo json_encode(['status' => 'success', 'message' => 'Update berhasil']);
+                exit;
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Update gagal']);
+                exit;
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Data tidak valid']);
+            exit;
+        }
+    }
+
     public function access()
     {
         $data = [
@@ -83,11 +129,11 @@ class LockerController extends Controller
         echo json_encode($location);
     }
 
-    public function access_data($range)
+    public function access_data($range, $keyword = NULL)
     {
         $limit = 20;
         $start = ($range - 1) * $limit;
-        $access = $this->model('Locker')->getAccessData($start, $limit);
+        $access = $this->model('Locker')->getAccessData($start, $limit, $keyword);
         echo json_encode($access);
     }
 
